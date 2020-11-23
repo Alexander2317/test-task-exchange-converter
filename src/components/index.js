@@ -1,3 +1,3 @@
-import Title from './title'
+import Alert from './alert'
 
-export { Title }
+export { Alert }
