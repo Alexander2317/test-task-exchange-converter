@@ -1,14 +1,17 @@
 // @flow
 
 import * as React from 'react'
+import { connect } from 'react-redux'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import makeStyles from '@material-ui/styles/makeStyles'
 
+import type { ConverterDataParams } from '../../types/common-types'
 import { Alert, Select, CustomInput } from '../../components'
 import { currencySymbols, currencies } from '../../config'
+import { selectors, actions } from '../../__data__'
 
 const useStyles = makeStyles({
   root: {
@@ -20,20 +23,28 @@ const useStyles = makeStyles({
   },
 })
 
-const Home = (): React.Node => {
+type Props = {
+  converterEntities: {
+    from: ConverterDataParams,
+    to: ConverterDataParams,
+  },
+  changeAmountAction: Function,
+}
+
+const Home = (props: Props): React.Node => {
+  const { converterEntities, changeAmountAction } = props
   const styles = useStyles()
   const [currency, setCurrency] = React.useState({
     from: 'EUR',
     to: 'EUR',
   })
-  const [amountFrom, setAmountFrom] = React.useState(0)
-  const [amountTo, setAmountTo] = React.useState(0)
 
-  const handleChangeInputFrom = (value) => setAmountFrom(value)
-  const handleChangeInputTo = (value) => setAmountTo(value)
+  const handleChangeInput = (type) => (value) => {
+    changeAmountAction({ type, value })
+  }
 
-  const handleChangeSelect = (prop: string) => (event) => {
-    setCurrency({ ...currency, [prop]: event.target.value })
+  const handleChangeSelect = (type: string) => (event) => {
+    setCurrency({ ...currency, [type]: event.target.value })
   }
 
   return (
@@ -52,15 +63,15 @@ const Home = (): React.Node => {
               <CustomInput.Money
                 id="amount-from"
                 name="amount-from"
-                value={amountFrom}
+                value={converterEntities.from.amount}
                 defaultValue={0}
-                handleChange={handleChangeInputFrom}
+                handleChange={handleChangeInput('from')}
               />
             </Grid>
             <Grid item xs={2}>
               <Select
                 id="currency-from"
-                value={currency.from}
+                value={converterEntities.from.currency}
                 onChange={handleChangeSelect('from')}
                 options={currencies}
               />
@@ -79,21 +90,22 @@ const Home = (): React.Node => {
               <CustomInput.Money
                 id="amount-to"
                 name="amount-to"
-                value={amountTo}
+                value={converterEntities.to.amount}
                 defaultValue={0}
-                handleChange={handleChangeInputTo}
+                handleChange={handleChangeInput('to')}
               />
             </Grid>
             <Grid item xs={2}>
               <Select
                 id="currency-to"
-                value={currency.to}
+                value={converterEntities.to.currency}
                 onChange={handleChangeSelect('to')}
                 options={currencies}
               />
             </Grid>
           </Grid>
         </Box>
+
         <Box my={1}>
           <Typography variant="caption">
             1 {currencySymbols.gbp} = 1.12 {currencySymbols.eur}
@@ -109,4 +121,15 @@ const Home = (): React.Node => {
   )
 }
 
-export default Home
+const mapStateToProps = (state) => ({
+  converterEntities: selectors.converter.getEntitiesSelector(state),
+})
+
+const mapDispatchToProps = {
+  changeAmountAction: actions.converter.changeAmount,
+}
+
+export default (connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home): React.AbstractComponent<Props>)
