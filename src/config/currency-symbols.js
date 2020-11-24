@@ -1,9 +1,9 @@
 // @flow
 
 const currencySymbols = {
-  usd: '$',
-  eur: '€',
-  gbp: '£',
+  USD: '$',
+  EUR: '€',
+  GBP: '£',
 }
 
 export default currencySymbols

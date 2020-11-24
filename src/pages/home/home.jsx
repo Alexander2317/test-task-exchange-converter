@@ -29,23 +29,34 @@ type Props = {
     to: ConverterDataParams,
   },
   changeAmountAction: Function,
+  changeCurrencyAction: Function,
 }
 
 const Home = (props: Props): React.Node => {
-  const { converterEntities, changeAmountAction } = props
+  const { useCallback } = React
+  const { converterEntities, changeAmountAction, changeCurrencyAction } = props
   const styles = useStyles()
-  const [currency, setCurrency] = React.useState({
-    from: 'EUR',
-    to: 'EUR',
-  })
+  const currencySymbolFrom = currencySymbols[converterEntities.from.currency]
+  const currencySymbolTo = currencySymbols[converterEntities.to.currency]
 
-  const handleChangeInput = (type) => (value) => {
-    changeAmountAction({ type, value })
-  }
+  const handleChangeInput = (type) =>
+    useCallback(
+      (value) => {
+        changeAmountAction({ type, value })
+      },
+      [type],
+    )
 
-  const handleChangeSelect = (type: string) => (event) => {
-    setCurrency({ ...currency, [type]: event.target.value })
-  }
+  const handleChangeSelect = (type: string) =>
+    useCallback(
+      (event) => {
+        const {
+          target: { value },
+        } = event
+        changeCurrencyAction({ type, value })
+      },
+      [type],
+    )
 
   return (
     <Box className={styles.root} my={2} mx="auto">
@@ -54,8 +65,8 @@ const Home = (props: Props): React.Node => {
       </Typography>
       <Box my={2}>
         <Typography variant="body2">Balance</Typography>
-        <Typography variant="h4">18 000 {currencySymbols.usd}</Typography>
-        <Typography variant="h4">18 000 {currencySymbols.gbp}</Typography>
+        <Typography variant="h4">18 000 {currencySymbolFrom}</Typography>
+        <Typography variant="h4">18 000 {currencySymbolTo}</Typography>
 
         <Box my={2}>
           <Grid container>
@@ -80,7 +91,7 @@ const Home = (props: Props): React.Node => {
         </Box>
         <Box my={1}>
           <Typography variant="caption">
-            1 {currencySymbols.eur} = 0.5 {currencySymbols.gbp}
+            1 {currencySymbolFrom} = 0.5 {currencySymbolTo}
           </Typography>
         </Box>
 
@@ -108,7 +119,7 @@ const Home = (props: Props): React.Node => {
 
         <Box my={1}>
           <Typography variant="caption">
-            1 {currencySymbols.gbp} = 1.12 {currencySymbols.eur}
+            1 {currencySymbolTo} = 0.5 {currencySymbolFrom}
           </Typography>
         </Box>
       </Box>
@@ -127,6 +138,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   changeAmountAction: actions.converter.changeAmount,
+  changeCurrencyAction: actions.converter.changeCurrency,
 }
 
 export default (connect(

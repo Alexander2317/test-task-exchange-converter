@@ -44,6 +44,13 @@ const converter = (state: State = initialState, action: Action): State => {
           ...payload.entities,
         },
       }
+    case actionTypes.CHANGE_CURRENCY_SUCCESS:
+      return {
+        ...state,
+        entities: {
+          ...payload.entities,
+        },
+      }
     default:
       return state
   }
