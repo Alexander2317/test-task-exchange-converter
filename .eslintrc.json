@@ -56,6 +56,7 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "import/no-extraneous-dependencies": ["error", { "packageDir": ".", "devDependencies": true }],
       "react/prefer-stateless-function": "off",
-      "import/prefer-default-export": "off"
+      "import/prefer-default-export": "off",
+      "react/jsx-props-no-spreading": "off"
   }
 }

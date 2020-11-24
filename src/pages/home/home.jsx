@@ -4,48 +4,21 @@ import * as React from 'react'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
-import Input from '@material-ui/core/Input'
-import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
-import FormControl from '@material-ui/core/FormControl'
 import makeStyles from '@material-ui/styles/makeStyles'
 
-import { Alert } from '../../components'
-import { currencySymbols } from '../../config'
+import { Alert, Select, CustomInput } from '../../components'
+import { currencySymbols, currencies } from '../../config'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     maxWidth: 400,
     width: '95%',
   },
-  input: {
-    width: '100%',
-  },
-  select: {
-    '& .MuiSelect-root': {
-      paddingLeft: theme.spacing(1),
-    },
-  },
   button: {
     width: '100%',
   },
-}))
-
-const currencies = [
-  {
-    value: 'USD',
-    label: 'USD',
-  },
-  {
-    value: 'EUR',
-    label: 'EUR',
-  },
-  {
-    value: 'GBP',
-    label: 'GBP',
-  },
-]
+})
 
 const Home = (): React.Node => {
   const styles = useStyles()
@@ -53,14 +26,11 @@ const Home = (): React.Node => {
     from: 'EUR',
     to: 'EUR',
   })
-  const [amount, setValues] = React.useState({
-    from: 0,
-    to: 0,
-  })
+  const [amountFrom, setAmountFrom] = React.useState(0)
+  const [amountTo, setAmountTo] = React.useState(0)
 
-  const handleChangeInput = (prop: string) => (event) => {
-    setValues({ ...amount, [prop]: event.target.value })
-  }
+  const handleChangeInputFrom = (value) => setAmountFrom(value)
+  const handleChangeInputTo = (value) => setAmountTo(value)
 
   const handleChangeSelect = (prop: string) => (event) => {
     setCurrency({ ...currency, [prop]: event.target.value })
@@ -79,31 +49,21 @@ const Home = (): React.Node => {
         <Box my={2}>
           <Grid container>
             <Grid item xs={10}>
-              <FormControl className={styles.input}>
-                <Input
-                  id="amount-from"
-                  value={amount.from}
-                  onChange={handleChangeInput('from')}
-                />
-              </FormControl>
+              <CustomInput.Money
+                id="amount-from"
+                name="amount-from"
+                value={amountFrom}
+                defaultValue={0}
+                handleChange={handleChangeInputFrom}
+              />
             </Grid>
             <Grid item xs={2}>
-              <TextField
+              <Select
                 id="currency-from"
-                select
                 value={currency.from}
                 onChange={handleChangeSelect('from')}
-                className={styles.select}
-              >
-                {currencies.map((option) => (
-                  <MenuItem
-                    key={`currency-from-${option.value}`}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+                options={currencies}
+              />
             </Grid>
           </Grid>
         </Box>
@@ -116,31 +76,21 @@ const Home = (): React.Node => {
         <Box my={2}>
           <Grid container>
             <Grid item xs={10}>
-              <FormControl className={styles.input}>
-                <Input
-                  id="amount-to"
-                  value={amount.to}
-                  onChange={handleChangeInput('to')}
-                />
-              </FormControl>
+              <CustomInput.Money
+                id="amount-to"
+                name="amount-to"
+                value={amountTo}
+                defaultValue={0}
+                handleChange={handleChangeInputTo}
+              />
             </Grid>
             <Grid item xs={2}>
-              <TextField
+              <Select
                 id="currency-to"
-                select
                 value={currency.to}
                 onChange={handleChangeSelect('to')}
-                className={styles.select}
-              >
-                {currencies.map((option) => (
-                  <MenuItem
-                    key={`currency-to-${option.value}`}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+                options={currencies}
+              />
             </Grid>
           </Grid>
         </Box>

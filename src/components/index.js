@@ -1,3 +1,5 @@
 import Alert from './alert'
+import Select from './select'
+import * as CustomInput from './input'
 
-export { Alert }
+export { Alert, Select, CustomInput }
