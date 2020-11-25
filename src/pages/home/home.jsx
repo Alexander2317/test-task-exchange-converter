@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import makeStyles from '@material-ui/styles/makeStyles'
 
-import type { ConverterDataParams } from '../../types/common-types'
+import type { ConverterDataParams, PriceRation } from '../../types/common-types'
 import { Alert, Select, CustomInput } from '../../components'
 import { currencySymbols, currencies } from '../../config'
 import { selectors, actions } from '../../__data__'
@@ -28,6 +28,7 @@ type Props = {
     from: ConverterDataParams,
     to: ConverterDataParams,
   },
+  priceRationEntities: PriceRation,
   changeAmountAction: Function,
   changeCurrencyAction: Function,
   getRateAction: Function,
@@ -37,6 +38,7 @@ const Home = (props: Props): React.Node => {
   const { useCallback, useEffect } = React
   const {
     converterEntities,
+    priceRationEntities,
     changeAmountAction,
     changeCurrencyAction,
     getRateAction,
@@ -66,6 +68,7 @@ const Home = (props: Props): React.Node => {
           target: { value },
         } = event
         changeCurrencyAction({ type, value })
+        getRateAction()
       },
       [type],
     )
@@ -103,7 +106,7 @@ const Home = (props: Props): React.Node => {
         </Box>
         <Box my={1}>
           <Typography variant="caption">
-            1 {currencySymbolFrom} = 0.5 {currencySymbolTo}
+            1 {currencySymbolFrom} = {priceRationEntities.to} {currencySymbolTo}
           </Typography>
         </Box>
 
@@ -131,7 +134,8 @@ const Home = (props: Props): React.Node => {
 
         <Box my={1}>
           <Typography variant="caption">
-            1 {currencySymbolTo} = 0.5 {currencySymbolFrom}
+            1 {currencySymbolTo} = {priceRationEntities.from}{' '}
+            {currencySymbolFrom}
           </Typography>
         </Box>
       </Box>
@@ -146,6 +150,7 @@ const Home = (props: Props): React.Node => {
 
 const mapStateToProps = (state) => ({
   converterEntities: selectors.converter.getEntitiesSelector(state),
+  priceRationEntities: selectors.priceRation.getEntitiesSelector(state),
 })
 
 const mapDispatchToProps = {

@@ -11,3 +11,8 @@ export type ConverterDataParams = {
   amount: number | string,
   currency: Currency,
 }
+
+export type PriceRation = {
+  from: string,
+  to: string,
+}

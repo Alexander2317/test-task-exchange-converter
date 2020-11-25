@@ -5,6 +5,7 @@ import { put, call, select, delay, takeLatest } from 'redux-saga/effects'
 import { converter } from '../selectors'
 import { actionTypes, routes, messages, base } from '../constants'
 
+import priceRation from './price-ratio'
 import { fetchApi } from './utils'
 
 function* getExchangeRate(): Generator<Object, void, any> {
@@ -35,10 +36,12 @@ function* getExchangeRate(): Generator<Object, void, any> {
         },
       })
     }
+    const rate = rates[to.currency]
     yield put({
       type: actionTypes.GET_EXCHANGE_RATE_SUCCESS,
-      payload: { rate: rates[to.currency] },
+      payload: { rate },
     })
+    yield call(priceRation, rate)
     yield delay(base.DELAY_REFETCH_RATE)
     return yield put({
       type: actionTypes.REFETCH_EXCHANGE_RATE,
