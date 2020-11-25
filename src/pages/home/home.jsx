@@ -30,14 +30,26 @@ type Props = {
   },
   changeAmountAction: Function,
   changeCurrencyAction: Function,
+  getRateAction: Function,
 }
 
 const Home = (props: Props): React.Node => {
-  const { useCallback } = React
-  const { converterEntities, changeAmountAction, changeCurrencyAction } = props
+  const { useCallback, useEffect } = React
+  const {
+    converterEntities,
+    changeAmountAction,
+    changeCurrencyAction,
+    getRateAction,
+  } = props
   const styles = useStyles()
   const currencySymbolFrom = currencySymbols[converterEntities.from.currency]
   const currencySymbolTo = currencySymbols[converterEntities.to.currency]
+
+  useEffect(() => {
+    if (currencySymbolTo && currencySymbolFrom) {
+      getRateAction()
+    }
+  }, [])
 
   const handleChangeInput = (type) =>
     useCallback(
@@ -139,6 +151,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   changeAmountAction: actions.converter.changeAmount,
   changeCurrencyAction: actions.converter.changeCurrency,
+  getRateAction: actions.exchangeRate.getRate,
 }
 
 export default (connect(
