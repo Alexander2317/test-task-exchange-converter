@@ -3,9 +3,11 @@
 import { put, select, call, takeEvery } from 'redux-saga/effects'
 import BigNumber from 'bignumber.js'
 
-import { bignumberConfig } from '../../config'
+import { bignumberConfig, currencies } from '../../config'
 import { converter, priceRation } from '../selectors'
 import { actionTypes, converterTypes } from '../constants'
+
+import { getFirstNonRepeatingElement } from './utils'
 
 type ActionChangeAmount = {
   payload: {
@@ -91,26 +93,68 @@ export function* changeCurrency(
   } = action
   const { from, to } = yield select(converter.getEntitiesSelector)
   if (type === converterTypes.FROM) {
-    return yield put({
-      type: actionTypes.CHANGE_CURRENCY_SUCCESS,
-      payload: {
+    let formattedCurrencies = {}
+    if (value === to.currency) {
+      formattedCurrencies = {
+        from: {
+          ...from,
+          currency: value,
+        },
+        to: {
+          ...to,
+          currency: getFirstNonRepeatingElement({
+            elements: currencies.list,
+            element: value,
+          }),
+        },
+      }
+    } else {
+      formattedCurrencies = {
         from: {
           ...from,
           currency: value,
         },
         to,
+      }
+    }
+
+    return yield put({
+      type: actionTypes.CHANGE_CURRENCY_SUCCESS,
+      payload: {
+        ...formattedCurrencies,
       },
     })
   }
 
-  return yield put({
-    type: actionTypes.CHANGE_CURRENCY_SUCCESS,
-    payload: {
+  let formattedCurrencies = {}
+  if (value === from.currency) {
+    formattedCurrencies = {
+      from: {
+        ...from,
+        currency: getFirstNonRepeatingElement({
+          elements: currencies.list,
+          element: value,
+        }),
+      },
+      to: {
+        ...to,
+        currency: value,
+      },
+    }
+  } else {
+    formattedCurrencies = {
       from,
       to: {
         ...to,
         currency: value,
       },
+    }
+  }
+
+  return yield put({
+    type: actionTypes.CHANGE_CURRENCY_SUCCESS,
+    payload: {
+      ...formattedCurrencies,
     },
   })
 }
