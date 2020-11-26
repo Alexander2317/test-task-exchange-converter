@@ -48,18 +48,15 @@ const Home = (props: Props): React.Node => {
   const currencySymbolTo = currencySymbols[converterEntities.to.currency]
 
   useEffect(() => {
-    if (currencySymbolTo && currencySymbolFrom) {
-      getRateAction()
-    }
+    getRateAction()
   }, [])
 
-  const handleChangeInput = (type) =>
-    useCallback(
-      (value) => {
-        changeAmountAction({ type, value })
-      },
-      [type],
-    )
+  const handleChangeInputFrom = useCallback((value) => {
+    changeAmountAction({ type: 'from', value })
+  }, [])
+  const handleChangeInputTo = useCallback((value) => {
+    changeAmountAction({ type: 'to', value })
+  }, [])
 
   const handleChangeSelect = (type: string) =>
     useCallback(
@@ -68,7 +65,7 @@ const Home = (props: Props): React.Node => {
           target: { value },
         } = event
         changeCurrencyAction({ type, value })
-        getRateAction()
+        getRateAction(type)
       },
       [type],
     )
@@ -90,8 +87,7 @@ const Home = (props: Props): React.Node => {
                 id="amount-from"
                 name="amount-from"
                 value={converterEntities.from.amount}
-                defaultValue={0}
-                handleChange={handleChangeInput('from')}
+                handleChange={handleChangeInputFrom}
               />
             </Grid>
             <Grid item xs={2}>
@@ -117,8 +113,7 @@ const Home = (props: Props): React.Node => {
                 id="amount-to"
                 name="amount-to"
                 value={converterEntities.to.amount}
-                defaultValue={0}
-                handleChange={handleChangeInput('to')}
+                handleChange={handleChangeInputTo}
               />
             </Grid>
             <Grid item xs={2}>

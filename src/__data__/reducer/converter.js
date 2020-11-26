@@ -13,21 +13,19 @@ type State = {
 type Action = {
   type: string,
   payload: {
-    entities: {
-      from: ConverterDataParams,
-      to: ConverterDataParams,
-    },
+    from: ConverterDataParams,
+    to: ConverterDataParams,
   },
 }
 
 const initialState = {
   entities: {
     from: {
-      amount: 0,
+      amount: 0.0,
       currency: 'USD',
     },
     to: {
-      amount: 0,
+      amount: 0.0,
       currency: 'EUR',
     },
   },
@@ -41,14 +39,14 @@ const converter = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         entities: {
-          ...payload.entities,
+          ...payload,
         },
       }
     case actionTypes.CHANGE_CURRENCY_SUCCESS:
       return {
         ...state,
         entities: {
-          ...payload.entities,
+          ...payload,
         },
       }
     default:
