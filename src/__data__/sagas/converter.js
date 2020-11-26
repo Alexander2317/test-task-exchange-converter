@@ -5,7 +5,7 @@ import BigNumber from 'bignumber.js'
 
 import { bignumberConfig } from '../../config'
 import { converter, priceRation } from '../selectors'
-import { actionTypes } from '../constants'
+import { actionTypes, converterTypes } from '../constants'
 
 type ActionChangeAmount = {
   payload: {
@@ -25,7 +25,7 @@ export function* changeAmount(
     priceRation.getEntitiesSelector,
   )
 
-  if (type === 'from') {
+  if (type === converterTypes.FROM) {
     const countToAmount = new BigNumber(value)
       .multipliedBy(toRatio)
       .toFixed(bignumberConfig.base.DECIMAL_PLACES)
@@ -69,7 +69,7 @@ export function* updateAmout(type: string): Generator<Object, any, any> {
     return null
   }
 
-  if (type === 'from') {
+  if (type === converterTypes.FROM) {
     return yield call(changeAmount, { payload: { type, value: from.amount } })
   }
 
@@ -90,7 +90,7 @@ export function* changeCurrency(
     payload: { type, value },
   } = action
   const { from, to } = yield select(converter.getEntitiesSelector)
-  if (type === 'from') {
+  if (type === converterTypes.FROM) {
     return yield put({
       type: actionTypes.CHANGE_CURRENCY_SUCCESS,
       payload: {
