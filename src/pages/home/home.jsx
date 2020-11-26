@@ -95,7 +95,7 @@ const Home = (props: Props): React.Node => {
                 id="currency-from"
                 value={converterEntities.from.currency}
                 onChange={handleChangeSelect('from')}
-                options={currencies}
+                options={currencies.options}
               />
             </Grid>
           </Grid>
@@ -121,7 +121,7 @@ const Home = (props: Props): React.Node => {
                 id="currency-to"
                 value={converterEntities.to.currency}
                 onChange={handleChangeSelect('to')}
-                options={currencies}
+                options={currencies.options}
               />
             </Grid>
           </Grid>

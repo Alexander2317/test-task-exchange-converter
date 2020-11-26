@@ -1,4 +1,4 @@
-const currencies = [
+const options = [
   {
     value: 'USD',
     label: 'USD',
@@ -13,4 +13,6 @@ const currencies = [
   },
 ]
 
-export default currencies
+const list = ['USD', 'EUR', 'GBP']
+
+export { options, list }
