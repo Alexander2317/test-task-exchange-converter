@@ -5,6 +5,7 @@ import converter from './converter'
 import exchangeRate from './exchange-rate'
 import priceRatio from './price-ratio'
 import wallet from './wallet'
+import notification from './notification'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -13,6 +14,7 @@ const createRootReducer = (history) =>
     exchangeRate,
     priceRatio,
     wallet,
+    notification,
   })
 
 export default createRootReducer

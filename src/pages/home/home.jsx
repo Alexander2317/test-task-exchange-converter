@@ -41,6 +41,9 @@ type Props = {
     inactiveWallet: Array<Wallet>,
   },
   transferPaymentAction: Function,
+  showNotification: boolean,
+  typeNotification: string,
+  messageNotification: string,
 }
 
 const Home = (props: Props): React.Node => {
@@ -53,6 +56,9 @@ const Home = (props: Props): React.Node => {
     getRateAction,
     wallets: { activeWallets },
     transferPaymentAction,
+    showNotification,
+    typeNotification,
+    messageNotification,
   } = props
   const styles = useStyles()
   const currencySymbolFrom = currencySymbols[converterEntities.from.currency]
@@ -164,7 +170,13 @@ const Home = (props: Props): React.Node => {
         transfer payment
       </Button>
 
-      <Alert open text="hello" />
+      {showNotification && (
+        <Alert
+          open={showNotification}
+          type={typeNotification}
+          text={messageNotification}
+        />
+      )}
     </Box>
   )
 }
@@ -173,6 +185,9 @@ const mapStateToProps = (state) => ({
   converterEntities: selectors.converter.getEntitiesSelector(state),
   priceRationEntities: selectors.priceRation.getEntitiesSelector(state),
   wallets: selectors.wallet.getWalletsSelector(state),
+  showNotification: selectors.notification.getShowSelector(state),
+  typeNotification: selectors.notification.getTypeSelector(state),
+  messageNotification: selectors.notification.getMessageSelector(state),
 })
 
 const mapDispatchToProps = {

@@ -7,6 +7,7 @@ import makeStyles from '@material-ui/styles/makeStyles'
 import BigNumber from 'bignumber.js'
 
 import { bignumberConfig } from '../../../config'
+import { constants } from '../../../__data__'
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +29,7 @@ const Money = ({ id, name, value, handleChange }: Props): React.Node => {
     let formattedValue = event.target.value.trim()
     const regExp = /^\d+(\.\d{0,2})?$/g
     if (!formattedValue) {
-      return handleChange('0.00')
+      return handleChange(constants.base.ZERO)
     }
 
     if (Number.isNaN(Number(formattedValue))) {

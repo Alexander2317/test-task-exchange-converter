@@ -43,6 +43,21 @@ const converter = (state: State = initialState, action: Action): State => {
           ...payload,
         },
       }
+    case actionTypes.CLEAR_AMOUNT:
+      return {
+        ...state,
+        entities: {
+          activeType: state.entities.activeType,
+          from: {
+            amount: '0.00',
+            currency: state.entities.from.currency,
+          },
+          to: {
+            amount: '0.00',
+            currency: state.entities.to.currency,
+          },
+        },
+      }
     case actionTypes.CHANGE_CURRENCY_SUCCESS:
       return {
         ...state,

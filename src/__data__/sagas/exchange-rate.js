@@ -3,8 +3,15 @@
 import { put, call, select, delay, takeLatest } from 'redux-saga/effects'
 
 import { converter } from '../selectors'
-import { actionTypes, routes, messages, base } from '../constants'
+import {
+  actionTypes,
+  routes,
+  messages,
+  base,
+  notification as notificationConstants,
+} from '../constants'
 
+import notification from './notification'
 import priceRation from './price-ratio'
 import { updateAmout } from './converter'
 import { fetchApi } from './utils'
@@ -21,20 +28,28 @@ function* getExchangeRate(action): Generator<Object, void, any> {
       `${routes.api}?base=${from.currency}&symbols=${to.currency}`,
     )
     if (error) {
-      return yield put({
+      yield put({
         type: actionTypes.GET_EXCHANGE_RATE_FAIL,
         error: {
           message: error,
         },
       })
+      return yield call(notification, {
+        type: notificationConstants.types.error,
+        message: error,
+      })
     }
     const { rates } = data
     if (Number.isNaN(rates[to.currency])) {
-      return yield put({
+      yield put({
         type: actionTypes.GET_EXCHANGE_RATE_FAIL,
         error: {
           message: messages.INVALID_RESPONSE,
         },
+      })
+      return yield call(notification, {
+        type: notificationConstants.types.error,
+        message: messages.INVALID_RESPONSE,
       })
     }
     const rate = rates[to.currency]
@@ -49,11 +64,15 @@ function* getExchangeRate(action): Generator<Object, void, any> {
       type: actionTypes.REFETCH_EXCHANGE_RATE,
     })
   } catch (error) {
-    return yield put({
+    yield put({
       type: actionTypes.GET_EXCHANGE_RATE_FAIL,
       error: {
         message: messages.ERROR_RESPONSE,
       },
+    })
+    return yield call(notification, {
+      type: notificationConstants.types.error,
+      message: messages.ERROR_RESPONSE,
     })
   }
 }
