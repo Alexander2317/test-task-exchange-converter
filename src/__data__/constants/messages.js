@@ -4,3 +4,4 @@ export const UNEXPECTED_ERROR = 'Something went wrong, try again...'
 export const INVALID_RESPONSE = 'Response invalid'
 export const NOT_ENOUGH_MONEY = `You don't have enough money`
 export const SUCCESS_RESPONSE = 'Success operation'
+export const CHECK_INTERNET = 'Check your internet connection'

@@ -11,6 +11,11 @@ export const getEntitiesSelector: Function = createSelector(
   helpers.getIdentifier,
 )
 
+export const getLoadingSelector: Function = createSelector(
+  helpers.getStoreKey({ name: storeKey, key: 'loading' }),
+  helpers.getIdentifier,
+)
+
 const getWallet = ({ wallets, activeCurrency }) =>
   wallets.find(({ currency }) => currency === activeCurrency)
 

@@ -1,6 +1,6 @@
 // @flow
 
-import { put, delay } from 'redux-saga/effects'
+import { put, delay, call } from 'redux-saga/effects'
 
 import { actionTypes, base } from '../constants'
 
@@ -9,16 +9,27 @@ type Props = {
   message: string,
 }
 
-function* saga({ type, message }: Props): Generator<Object, void, any> {
+export function* notificationShow({
+  type,
+  message,
+}: Props): Generator<Object, void, any> {
   yield put({
     type: actionTypes.SHOW_NOTIFICATION,
     payload: { type, message },
   })
-  yield delay(base.DELAY_SHOW_NOTIFICATION)
+}
+
+export function* notificationHide(): Generator<Object, void, any> {
   yield put({
     type: actionTypes.HIDE_NOTIFICATION,
-    payload: { type, message },
   })
 }
 
-export default saga
+export function* notificationToggle({
+  type,
+  message,
+}: Props): Generator<Object, void, any> {
+  yield call(notificationShow, { type, message })
+  yield delay(base.DELAY_SHOW_NOTIFICATION)
+  yield call(notificationHide)
+}

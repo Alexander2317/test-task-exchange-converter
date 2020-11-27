@@ -60,6 +60,7 @@ const Money = ({ id, name, value, handleChange }: Props): React.Node => {
   return (
     <FormControl className={styles.root}>
       <Input
+        autocomplete="off"
         id={id}
         name={name}
         value={value}

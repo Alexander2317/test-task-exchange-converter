@@ -4,14 +4,10 @@ import { put, takeEvery, select, call } from 'redux-saga/effects'
 import BigNumber from 'bignumber.js'
 
 import { bignumberConfig } from '../../config'
-import {
-  actionTypes,
-  messages,
-  notification as notificationConstants,
-} from '../constants'
+import { actionTypes, messages, notification } from '../constants'
 import { converter, wallet } from '../selectors'
 
-import notification from './notification'
+import { notificationToggle } from './notification'
 
 function* transferPayment(): Generator<Object, void, any> {
   const { from, to } = yield select(converter.getEntitiesSelector)
@@ -27,8 +23,8 @@ function* transferPayment(): Generator<Object, void, any> {
         message: messages.NOT_ENOUGH_MONEY,
       },
     })
-    return yield call(notification, {
-      type: notificationConstants.types.error,
+    return yield call(notificationToggle, {
+      type: notification.types.error,
       message: messages.NOT_ENOUGH_MONEY,
     })
   }
@@ -60,8 +56,8 @@ function* transferPayment(): Generator<Object, void, any> {
     yield put({
       type: actionTypes.CLEAR_AMOUNT,
     })
-    return yield call(notification, {
-      type: notificationConstants.types.success,
+    return yield call(notificationToggle, {
+      type: notification.types.success,
       message: messages.SUCCESS_RESPONSE,
     })
   } catch (error) {
@@ -71,8 +67,8 @@ function* transferPayment(): Generator<Object, void, any> {
         message: messages.UNEXPECTED_ERROR,
       },
     })
-    return yield call(notification, {
-      type: notificationConstants.types.error,
+    return yield call(notificationToggle, {
+      type: notification.types.error,
       message: messages.UNEXPECTED_ERROR,
     })
   }

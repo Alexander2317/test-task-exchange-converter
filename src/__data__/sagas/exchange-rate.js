@@ -3,15 +3,9 @@
 import { put, call, select, delay, takeLatest } from 'redux-saga/effects'
 
 import { converter } from '../selectors'
-import {
-  actionTypes,
-  routes,
-  messages,
-  base,
-  notification as notificationConstants,
-} from '../constants'
+import { actionTypes, routes, messages, base, notification } from '../constants'
 
-import notification from './notification'
+import { notificationToggle } from './notification'
 import priceRation from './price-ratio'
 import { updateAmout } from './converter'
 import { fetchApi } from './utils'
@@ -34,8 +28,8 @@ function* getExchangeRate(action): Generator<Object, void, any> {
           message: error,
         },
       })
-      return yield call(notification, {
-        type: notificationConstants.types.error,
+      return yield call(notificationToggle, {
+        type: notification.types.error,
         message: error,
       })
     }
@@ -47,8 +41,8 @@ function* getExchangeRate(action): Generator<Object, void, any> {
           message: messages.INVALID_RESPONSE,
         },
       })
-      return yield call(notification, {
-        type: notificationConstants.types.error,
+      return yield call(notificationToggle, {
+        type: notification.types.error,
         message: messages.INVALID_RESPONSE,
       })
     }
@@ -70,8 +64,8 @@ function* getExchangeRate(action): Generator<Object, void, any> {
         message: messages.ERROR_RESPONSE,
       },
     })
-    return yield call(notification, {
-      type: notificationConstants.types.error,
+    return yield call(notificationToggle, {
+      type: notification.types.error,
       message: messages.ERROR_RESPONSE,
     })
   }
