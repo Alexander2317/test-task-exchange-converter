@@ -16,3 +16,7 @@ export type PriceRation = {
   from: string,
   to: string,
 }
+export type Wallet = Array<{
+  currency: Currency,
+  balance: string | number,
+}>

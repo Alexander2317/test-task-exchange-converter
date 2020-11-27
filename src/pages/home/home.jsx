@@ -8,7 +8,11 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import makeStyles from '@material-ui/styles/makeStyles'
 
-import type { ConverterDataParams, PriceRation } from '../../types/common-types'
+import type {
+  ConverterDataParams,
+  PriceRation,
+  Wallet,
+} from '../../types/common-types'
 import { Alert, Select, CustomInput } from '../../components'
 import { currencySymbols, currencies } from '../../config'
 import { selectors, actions, constants } from '../../__data__'
@@ -32,6 +36,11 @@ type Props = {
   changeAmountAction: Function,
   changeCurrencyAction: Function,
   getRateAction: Function,
+  wallets: {
+    activeWallets: Array<Wallet>,
+    inactiveWallet: Array<Wallet>,
+  },
+  transferPaymentAction: Function,
 }
 
 const Home = (props: Props): React.Node => {
@@ -42,10 +51,16 @@ const Home = (props: Props): React.Node => {
     changeAmountAction,
     changeCurrencyAction,
     getRateAction,
+    wallets: { activeWallets },
+    transferPaymentAction,
   } = props
   const styles = useStyles()
   const currencySymbolFrom = currencySymbols[converterEntities.from.currency]
   const currencySymbolTo = currencySymbols[converterEntities.to.currency]
+
+  const checkDisabledButton =
+    Number(converterEntities.from.amount) === Number(constants.base.ZERO) &&
+    Number(converterEntities.to.amount) === Number(constants.base.ZERO)
 
   useEffect(() => {
     getRateAction(constants.converterTypes.FROM)
@@ -69,6 +84,9 @@ const Home = (props: Props): React.Node => {
       },
       [type],
     )
+  const handleClick = useCallback(() => {
+    transferPaymentAction()
+  }, [])
 
   return (
     <Box className={styles.root} my={2} mx="auto">
@@ -77,8 +95,11 @@ const Home = (props: Props): React.Node => {
       </Typography>
       <Box my={2}>
         <Typography variant="body2">Balance</Typography>
-        <Typography variant="h4">18 000 {currencySymbolFrom}</Typography>
-        <Typography variant="h4">18 000 {currencySymbolTo}</Typography>
+        {activeWallets.map((item) => (
+          <Typography key={`wallet-${item.currency}`} variant="h4">
+            {item.balance} {currencySymbols[item.currency]}
+          </Typography>
+        ))}
 
         <Box my={2}>
           <Grid container>
@@ -134,8 +155,13 @@ const Home = (props: Props): React.Node => {
           </Typography>
         </Box>
       </Box>
-      <Button className={styles.button} variant="outlined">
-        Exchange
+      <Button
+        className={styles.button}
+        variant="outlined"
+        disabled={checkDisabledButton}
+        onClick={handleClick}
+      >
+        transfer payment
       </Button>
 
       <Alert open text="hello" />
@@ -146,12 +172,14 @@ const Home = (props: Props): React.Node => {
 const mapStateToProps = (state) => ({
   converterEntities: selectors.converter.getEntitiesSelector(state),
   priceRationEntities: selectors.priceRation.getEntitiesSelector(state),
+  wallets: selectors.wallet.getWalletsSelector(state),
 })
 
 const mapDispatchToProps = {
   changeAmountAction: actions.converter.changeAmount,
   changeCurrencyAction: actions.converter.changeCurrency,
   getRateAction: actions.exchangeRate.getRate,
+  transferPaymentAction: actions.payment.transfer,
 }
 
 export default (connect(

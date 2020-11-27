@@ -4,6 +4,7 @@ import { connectRouter } from 'connected-react-router'
 import converter from './converter'
 import exchangeRate from './exchange-rate'
 import priceRatio from './price-ratio'
+import wallet from './wallet'
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -11,6 +12,7 @@ const createRootReducer = (history) =>
     converter,
     exchangeRate,
     priceRatio,
+    wallet,
   })
 
 export default createRootReducer
