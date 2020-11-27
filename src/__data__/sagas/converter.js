@@ -23,9 +23,13 @@ export function* changeAmount(
     payload: { type, value },
   } = action
   const { from, to } = yield select(converter.getEntitiesSelector)
-  const { from: fromRatio, to: toRatio } = yield select(
-    priceRation.getEntitiesSelector,
-  )
+  const { to: toRatio } = yield select(priceRation.getEntitiesSelector)
+
+  if (from.amount === value || to.amount === value) {
+    return yield put({
+      type: actionTypes.AMOUNT_IS_THE_SAME,
+    })
+  }
 
   if (type === converterTypes.FROM) {
     const countToAmount = new BigNumber(value)
@@ -35,6 +39,7 @@ export function* changeAmount(
     return yield put({
       type: actionTypes.CHANGE_AMOUNT_SUCCESS,
       payload: {
+        activeType: type,
         from: {
           ...from,
           amount: value,
@@ -47,12 +52,13 @@ export function* changeAmount(
     })
   }
   const countFromAmount = new BigNumber(value)
-    .multipliedBy(fromRatio)
+    .dividedBy(toRatio)
     .toFixed(bignumberConfig.base.DECIMAL_PLACES)
 
   return yield put({
     type: actionTypes.CHANGE_AMOUNT_SUCCESS,
     payload: {
+      activeType: type,
       from: {
         ...from,
         amount: countFromAmount,
@@ -65,17 +71,23 @@ export function* changeAmount(
   })
 }
 
-export function* updateAmout(type: string): Generator<Object, any, any> {
-  const { from, to } = yield select(converter.getEntitiesSelector)
+export function* updateAmout(): Generator<Object, any, any> {
+  const { activeType, from, to } = yield select(converter.getEntitiesSelector)
   if (from.amount === to.amount) {
-    return null
+    return yield put({
+      type: actionTypes.AMOUNT_IS_THE_SAME,
+    })
   }
 
-  if (type === converterTypes.FROM) {
-    return yield call(changeAmount, { payload: { type, value: from.amount } })
+  if (activeType === converterTypes.FROM) {
+    return yield call(changeAmount, {
+      payload: { type: activeType, value: from.amount },
+    })
   }
 
-  return yield call(changeAmount, { payload: { type, value: to.amount } })
+  return yield call(changeAmount, {
+    payload: { type: activeType, value: to.amount },
+  })
 }
 
 type ActionChangeCurrency = {
@@ -96,6 +108,7 @@ export function* changeCurrency(
     let formattedCurrencies = {}
     if (value === to.currency) {
       formattedCurrencies = {
+        activeType: type,
         from: {
           ...from,
           currency: value,
@@ -110,6 +123,7 @@ export function* changeCurrency(
       }
     } else {
       formattedCurrencies = {
+        activeType: type,
         from: {
           ...from,
           currency: value,
@@ -129,6 +143,7 @@ export function* changeCurrency(
   let formattedCurrencies = {}
   if (value === from.currency) {
     formattedCurrencies = {
+      activeType: type,
       from: {
         ...from,
         currency: getFirstNonRepeatingElement({
@@ -143,6 +158,7 @@ export function* changeCurrency(
     }
   } else {
     formattedCurrencies = {
+      activeType: type,
       from,
       to: {
         ...to,

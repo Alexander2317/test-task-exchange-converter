@@ -11,7 +11,7 @@ import makeStyles from '@material-ui/styles/makeStyles'
 import type { ConverterDataParams, PriceRation } from '../../types/common-types'
 import { Alert, Select, CustomInput } from '../../components'
 import { currencySymbols, currencies } from '../../config'
-import { selectors, actions } from '../../__data__'
+import { selectors, actions, constants } from '../../__data__'
 
 const useStyles = makeStyles({
   root: {
@@ -48,14 +48,14 @@ const Home = (props: Props): React.Node => {
   const currencySymbolTo = currencySymbols[converterEntities.to.currency]
 
   useEffect(() => {
-    getRateAction()
+    getRateAction(constants.converterTypes.FROM)
   }, [])
 
   const handleChangeInputFrom = useCallback((value) => {
-    changeAmountAction({ type: 'from', value })
+    changeAmountAction({ type: constants.converterTypes.FROM, value })
   }, [])
   const handleChangeInputTo = useCallback((value) => {
-    changeAmountAction({ type: 'to', value })
+    changeAmountAction({ type: constants.converterTypes.TO, value })
   }, [])
 
   const handleChangeSelect = (type: string) =>
@@ -65,7 +65,7 @@ const Home = (props: Props): React.Node => {
           target: { value },
         } = event
         changeCurrencyAction({ type, value })
-        getRateAction(type)
+        getRateAction()
       },
       [type],
     )

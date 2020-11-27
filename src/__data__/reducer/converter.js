@@ -1,7 +1,7 @@
 // @flow
 
 import type { ConverterDataParams } from '../../types/common-types'
-import { actionTypes } from '../constants'
+import { actionTypes, converterTypes } from '../constants'
 
 type State = {
   entities: {
@@ -20,12 +20,13 @@ type Action = {
 
 const initialState = {
   entities: {
+    activeType: converterTypes.FROM,
     from: {
-      amount: 0.0,
+      amount: '0.00',
       currency: 'USD',
     },
     to: {
-      amount: 0.0,
+      amount: '0.00',
       currency: 'EUR',
     },
   },

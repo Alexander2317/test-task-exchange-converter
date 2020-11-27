@@ -10,10 +10,7 @@ import { updateAmout } from './converter'
 import { fetchApi } from './utils'
 
 function* getExchangeRate(action): Generator<Object, void, any> {
-  const {
-    payload: { type },
-  } = action
-  const { from, to } = yield select(converter.getEntitiesSelector)
+  const { activeType, from, to } = yield select(converter.getEntitiesSelector)
   yield put({
     type: actionTypes.GET_EXCHANGE_RATE_START,
   })
@@ -46,9 +43,7 @@ function* getExchangeRate(action): Generator<Object, void, any> {
       payload: { rate },
     })
     yield call(priceRation, rate)
-    if (type) {
-      yield call(updateAmout, type)
-    }
+    yield call(updateAmout, activeType)
     yield delay(base.DELAY_REFETCH_RATE)
     return yield put({
       type: actionTypes.REFETCH_EXCHANGE_RATE,

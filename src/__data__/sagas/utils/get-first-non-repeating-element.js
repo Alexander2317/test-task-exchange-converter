@@ -1,7 +1,7 @@
 // @flow
 
 type Props = {
-  elements: Array<string | Object>,
+  elements: Array<string>,
   element: string,
 }
 
