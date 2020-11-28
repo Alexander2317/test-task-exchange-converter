@@ -16,7 +16,12 @@ describe('<Select />', () => {
       value: 'usd',
       name: 'select',
       onChange: jest.fn(),
-      options: [],
+      options: [
+        {
+          value: 'usd',
+          label: 'usd',
+        },
+      ],
     }
     const component = mount(
       <ThemeProvider theme={theme}>

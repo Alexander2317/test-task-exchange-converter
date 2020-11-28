@@ -96,14 +96,14 @@ describe('priceRatio Saga', () => {
       put({
         type: actionTypes.GET_EXCHANGE_RATE_FAIL,
         error: {
-          message: messages.INVALID_RESPONSE,
+          message: messages.ERROR_RESPONSE,
         },
       }),
     )
     expect(saga.next(data).value).toEqual(
       call(notificationToggle, {
         type: notification.types.error,
-        message: messages.INVALID_RESPONSE,
+        message: messages.ERROR_RESPONSE,
       }),
     )
     expect(saga.next().done).toBe(true)
