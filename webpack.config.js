@@ -171,11 +171,11 @@ module.exports = (_, { mode }) => ({
   },
   devtool: isDevMode(mode) ? 'eval' : 'cheap-module-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, PROJECT_FOLDER),
-    open: false,
     port: PORT,
-    hot: true,
     historyApiFallback: true,
+    static: {
+      directory: path.resolve(__dirname, PROJECT_FOLDER),
+    },
   },
   module: {
     rules: getRules(mode),
