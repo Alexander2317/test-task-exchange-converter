@@ -16,22 +16,24 @@ const useStyles = makeStyles((theme) => ({
 type Props = {
   id: string,
   value: string,
+  name: string,
   onChange: Function,
   options: Array<{ value: string, label: string }>,
 }
 
-const Select = ({ id, value, onChange, options }: Props): React.Node => {
+const Select = ({ id, value, name, onChange, options }: Props): React.Node => {
   const styles = useStyles()
   return (
     <TextField
-      id={id}
       select
+      id={id}
+      name={name}
       value={value}
       onChange={onChange}
       className={styles.root}
     >
       {options.map((option) => (
-        <MenuItem key={`${id}-${option.value}`} value={option.value}>
+        <MenuItem key={`${name}-${option.value}`} value={option.value}>
           {option.label}
         </MenuItem>
       ))}

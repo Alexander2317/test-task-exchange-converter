@@ -3,10 +3,10 @@
 import * as React from 'react'
 import { Switch, Route, Redirect } from 'react-router'
 
+import { constants } from '../__data__'
+
 import Home from './home'
 import NotFound from './not-found'
-
-import { constants } from '../__data__'
 
 const { routes } = constants
 
