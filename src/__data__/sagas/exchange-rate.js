@@ -10,7 +10,7 @@ import priceRation from './price-ratio'
 import { updateAmount } from './converter'
 import { fetchApi } from './utils'
 
-function* getExchangeRate(): Generator<Object, void, any> {
+export function* getExchangeRate(): Generator<Object, void, any> {
   const { activeType, from, to } = yield select(converter.getEntitiesSelector)
   yield put({
     type: actionTypes.GET_EXCHANGE_RATE_START,
@@ -33,6 +33,7 @@ function* getExchangeRate(): Generator<Object, void, any> {
         message: error,
       })
     }
+
     const { rates } = data
     if (Number.isNaN(rates[to.currency])) {
       yield put({
@@ -46,6 +47,7 @@ function* getExchangeRate(): Generator<Object, void, any> {
         message: messages.INVALID_RESPONSE,
       })
     }
+
     const rate = rates[to.currency]
     yield put({
       type: actionTypes.GET_EXCHANGE_RATE_SUCCESS,

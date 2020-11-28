@@ -9,7 +9,7 @@ import { converter, wallet } from '../selectors'
 
 import { notificationToggle } from './notification'
 
-function* transferPayment(): Generator<Object, void, any> {
+export function* transferPayment(): Generator<Object, void, any> {
   const { from, to } = yield select(converter.getEntitiesSelector)
   const { activeWallets, inactiveWallet } = yield select(
     wallet.getWalletsSelector,
@@ -28,6 +28,7 @@ function* transferPayment(): Generator<Object, void, any> {
       message: messages.NOT_ENOUGH_MONEY,
     })
   }
+
   try {
     const countFrom = new BigNumber(fromWallet.balance)
       .minus(from.amount)
