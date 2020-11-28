@@ -1,6 +1,6 @@
 // @flow
 
-import type { PriceRation } from '../../types/common-types'
+import type { PriceRation } from '../../types/common'
 import { actionTypes } from '../constants'
 
 type State = {

@@ -42,8 +42,8 @@ const Money = ({ id, name, value, handleChange }: Props): React.Node => {
 
     if (
       formattedValue.length === 2 &&
-      formattedValue[1] !== '.' &&
-      formattedValue[0] === '0'
+      formattedValue[1] !== constants.base.DECIMAL_SEPARATOR &&
+      formattedValue[0] === constants.base.ZERO
     ) {
       formattedValue = formattedValue[1]
     }
@@ -60,12 +60,12 @@ const Money = ({ id, name, value, handleChange }: Props): React.Node => {
   return (
     <FormControl className={styles.root}>
       <Input
-        autocomplete="off"
         id={id}
         name={name}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        autoComplete="off"
       />
     </FormControl>
   )

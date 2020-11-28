@@ -5,7 +5,7 @@ import { put, delay, call } from 'redux-saga/effects'
 import { actionTypes, base } from '../constants'
 
 type Props = {
-  type: srting,
+  type: string,
   message: string,
 }
 

@@ -13,7 +13,7 @@ import type {
   ConverterDataParams,
   PriceRation,
   Wallet,
-} from '../../types/common-types'
+} from '../../types/common'
 import { Alert, Select, CustomInput } from '../../components'
 import { currencySymbols, currencies } from '../../config'
 import { selectors, actions, constants } from '../../__data__'

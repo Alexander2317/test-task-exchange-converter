@@ -1,10 +1,11 @@
 // @flow
 
-import type { ConverterDataParams } from '../../types/common-types'
-import { actionTypes, converterTypes } from '../constants'
+import type { ConverterDataParams, ConverterTypes } from '../../types/common'
+import { actionTypes, converterTypes, base } from '../constants'
 
 type State = {
   entities: {
+    activeType: ConverterTypes,
     from: ConverterDataParams,
     to: ConverterDataParams,
   },
@@ -13,6 +14,7 @@ type State = {
 type Action = {
   type: string,
   payload: {
+    activeType: ConverterTypes,
     from: ConverterDataParams,
     to: ConverterDataParams,
   },
@@ -22,11 +24,11 @@ const initialState = {
   entities: {
     activeType: converterTypes.FROM,
     from: {
-      amount: '0.00',
+      amount: base.ZERO,
       currency: 'USD',
     },
     to: {
-      amount: '0.00',
+      amount: base.ZERO,
       currency: 'EUR',
     },
   },
@@ -49,11 +51,11 @@ const converter = (state: State = initialState, action: Action): State => {
         entities: {
           activeType: state.entities.activeType,
           from: {
-            amount: '0.00',
+            amount: base.ZERO,
             currency: state.entities.from.currency,
           },
           to: {
-            amount: '0.00',
+            amount: base.ZERO,
             currency: state.entities.to.currency,
           },
         },

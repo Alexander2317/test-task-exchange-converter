@@ -1,13 +1,10 @@
 // @flow
 
-import {
-  actionTypes,
-  notification as notificationConstants,
-} from '../constants'
+import { actionTypes } from '../constants'
 
 type State = {
   show: boolean,
-  type: notificationConstants.types.success | notificationConstants.types.error,
+  type: string,
   message: string,
 }
 

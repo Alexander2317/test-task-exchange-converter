@@ -1,6 +1,6 @@
 // @flow
 
-import type { Wallet } from '../../types/common-types'
+import type { Wallet } from '../../types/common'
 import { actionTypes } from '../constants'
 import { walletList } from '../../config'
 
@@ -14,9 +14,9 @@ type Action = {
   type: string,
   payload: {
     entities: Array<Wallet>,
-    error: {
-      messages: string,
-    },
+  },
+  error: {
+    message: string,
   },
 }
 
