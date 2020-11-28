@@ -23,7 +23,7 @@ type Props = {
 
 const Select = ({ id, value, name, onChange, options }: Props): React.Node => {
   const styles = useStyles()
-  const handleChange = (event: SyntheticEvent<HTMLSelectElement>) => {
+  const handleChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     onChange(event.target.value)
   }
 
