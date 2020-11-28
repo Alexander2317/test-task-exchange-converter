@@ -23,36 +23,33 @@ type Props = {
 }
 
 const Money = ({ id, name, value, handleChange }: Props): React.Node => {
-  const { useCallback } = React
   const styles = useStyles()
-  const onChange = useCallback(
-    (event: SyntheticInputEvent<HTMLInputElement>) => {
-      let formattedValue = event.target.value.trim()
-      const regExp = /^\d+(\.\d{0,2})?$/g
-      if (!formattedValue) {
-        return handleChange(constants.base.ZERO)
-      }
+  const onChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
+    let formattedValue = event.target.value.trim()
+    const regExp = /^\d+(\.\d{0,2})?$/g
+    if (!formattedValue) {
+      return handleChange(constants.base.ZERO)
+    }
 
-      if (Number.isNaN(Number(formattedValue))) {
-        return false
-      }
+    if (Number.isNaN(Number(formattedValue))) {
+      return false
+    }
 
-      if (!regExp.test(formattedValue)) {
-        return false
-      }
+    if (!regExp.test(formattedValue)) {
+      return false
+    }
 
-      if (
-        formattedValue.length === 2 &&
-        formattedValue[1] !== constants.base.DECIMAL_SEPARATOR &&
-        formattedValue[0] === constants.base.ZERO
-      ) {
-        formattedValue = formattedValue[1]
-      }
+    if (
+      formattedValue.length === 2 &&
+      formattedValue[1] !== constants.base.DECIMAL_SEPARATOR &&
+      formattedValue[0] === constants.base.ZERO
+    ) {
+      formattedValue = formattedValue[1]
+    }
 
-      return handleChange(formattedValue)
-    },
-    [],
-  )
+    return handleChange(formattedValue)
+  }
+
   const onBlur = (event: SyntheticInputEvent<HTMLInputElement>) => {
     const formattedValue = new BigNumber(event.target.value).toFormat(
       bignumberConfig.base.DECIMAL_PLACES,
