@@ -7,10 +7,10 @@ import { actionTypes, routes, messages, base, notification } from '../constants'
 
 import { notificationToggle } from './notification'
 import priceRation from './price-ratio'
-import { updateAmout } from './converter'
+import { updateAmount } from './converter'
 import { fetchApi } from './utils'
 
-function* getExchangeRate(action): Generator<Object, void, any> {
+function* getExchangeRate(): Generator<Object, void, any> {
   const { activeType, from, to } = yield select(converter.getEntitiesSelector)
   yield put({
     type: actionTypes.GET_EXCHANGE_RATE_START,
@@ -52,7 +52,7 @@ function* getExchangeRate(action): Generator<Object, void, any> {
       payload: { rate },
     })
     yield call(priceRation, rate)
-    yield call(updateAmout, activeType)
+    yield call(updateAmount, activeType)
     yield delay(base.DELAY_REFETCH_RATE)
     return yield put({
       type: actionTypes.REFETCH_EXCHANGE_RATE,

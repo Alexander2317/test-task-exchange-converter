@@ -71,7 +71,7 @@ export function* changeAmount(
   })
 }
 
-export function* updateAmout(): Generator<Object, any, any> {
+export function* updateAmount(): Generator<Object, any, any> {
   const { activeType, from, to } = yield select(converter.getEntitiesSelector)
   if (from.amount === to.amount) {
     return yield put({

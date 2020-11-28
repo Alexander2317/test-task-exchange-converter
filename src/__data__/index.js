@@ -1,3 +1,5 @@
+// @flow
+
 import configureStore from './configure-store'
 import * as actions from './actions'
 import * as constants from './constants'

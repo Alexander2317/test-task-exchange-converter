@@ -2,10 +2,13 @@
 
 import { createSelector } from 'reselect'
 
+import type { Wallet } from '../../types/common'
+
 import helpers from './helpers'
 import { getEntitiesSelector as converterEntities } from './converter'
 
 const storeKey = 'wallet'
+
 export const getEntitiesSelector: Function = createSelector(
   helpers.getStoreKey({ name: storeKey, key: 'entities' }),
   helpers.getIdentifier,
@@ -16,7 +19,12 @@ export const getLoadingSelector: Function = createSelector(
   helpers.getIdentifier,
 )
 
-const getWallet = ({ wallets, activeCurrency }) =>
+type GetWallet = {
+  wallets: Array<Wallet>,
+  activeCurrency: string,
+}
+
+const getWallet = ({ wallets, activeCurrency }: GetWallet) =>
   wallets.find(({ currency }) => currency === activeCurrency)
 
 export const getWalletsSelector: Function = createSelector(
