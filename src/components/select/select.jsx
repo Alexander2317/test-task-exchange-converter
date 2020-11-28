@@ -23,13 +23,17 @@ type Props = {
 
 const Select = ({ id, value, name, onChange, options }: Props): React.Node => {
   const styles = useStyles()
+  const handleChange = (event: SyntheticEvent<HTMLSelectElement>) => {
+    onChange(event.target.value)
+  }
+
   return (
     <TextField
       select
       id={id}
       name={name}
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       className={styles.root}
     >
       {options.map((option) => (

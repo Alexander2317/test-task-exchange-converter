@@ -23,7 +23,6 @@ type Props = {
 }
 
 const Converter = (props: Props): React.Node => {
-  const { useCallback } = React
   const {
     converterEntities,
     priceRationEntities,
@@ -35,24 +34,21 @@ const Converter = (props: Props): React.Node => {
   const currencySymbolFrom = currencySymbols[converterEntities.from.currency]
   const currencySymbolTo = currencySymbols[converterEntities.to.currency]
 
-  const handleChangeInputFrom = useCallback((value) => {
+  const handleChangeInputFrom = (value) => {
     changeAmountAction({ type: constants.converterTypes.FROM, value })
-  }, [])
-  const handleChangeInputTo = useCallback((value) => {
+  }
+  const handleChangeInputTo = (value) => {
     changeAmountAction({ type: constants.converterTypes.TO, value })
-  }, [])
+  }
 
-  const handleChangeSelect = (type: string) =>
-    useCallback(
-      (event) => {
-        const {
-          target: { value },
-        } = event
-        changeCurrencyAction({ type, value })
-        getRateAction()
-      },
-      [type],
-    )
+  const handleChangeSelectFrom = (value) => {
+    changeCurrencyAction({ type: constants.converterTypes.FROM, value })
+    getRateAction()
+  }
+  const handleChangeSelectTo = (value) => {
+    changeCurrencyAction({ type: constants.converterTypes.TO, value })
+    getRateAction()
+  }
 
   return (
     <>
@@ -64,7 +60,7 @@ const Converter = (props: Props): React.Node => {
         selectId="currency-from"
         selectName="currency-from"
         selectValue={converterEntities.from.currency}
-        selectHandleChange={handleChangeSelect('from')}
+        selectHandleChange={handleChangeSelectFrom}
         selectOptions={currencies.options}
       />
       <RateRatio
@@ -81,7 +77,7 @@ const Converter = (props: Props): React.Node => {
         selectId="currency-to"
         selectName="currency-to"
         selectValue={converterEntities.to.currency}
-        selectHandleChange={handleChangeSelect('to')}
+        selectHandleChange={handleChangeSelectTo}
         selectOptions={currencies.options}
       />
       <RateRatio

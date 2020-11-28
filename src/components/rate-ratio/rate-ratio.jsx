@@ -20,7 +20,7 @@ const RateRatio = ({
 }: Props): React.Node => (
   <Box my={1}>
     <Typography variant="caption">
-      {!loading ? (
+      {loading ? (
         <CircularProgress size={10} />
       ) : (
         <>

@@ -35,8 +35,6 @@ type Props = {
 }
 
 const ButtonTransfer = (props: Props): React.Node => {
-  const { useCallback } = React
-
   const {
     converterEntities,
     transferPaymentAction,
@@ -51,16 +49,12 @@ const ButtonTransfer = (props: Props): React.Node => {
     Number(converterEntities.to.amount) === Number(constants.base.ZERO)
   const checkLoading = exchangeRateLoading || loadingPayment
 
-  const handleClick = useCallback(() => {
-    transferPaymentAction()
-  }, [])
-
   return (
     <Button
       className={styles.button}
       variant="outlined"
       disabled={checkDisabledButton || checkLoading}
-      onClick={handleClick}
+      onClick={transferPaymentAction}
     >
       {checkLoading && <CircularProgress size={20} className={styles.loader} />}
       transfer payment
