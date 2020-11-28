@@ -27,8 +27,7 @@ const priceRation = (state: State = initialState, action: Action): State => {
       return {
         ...state,
         entities: {
-          from: payload.from,
-          to: payload.to,
+          ...payload,
         },
       }
     default:
