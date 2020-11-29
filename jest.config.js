@@ -28,6 +28,7 @@ module.exports = {
       lines: 0,
     },
   },
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   reporters: [
     'default',
     [

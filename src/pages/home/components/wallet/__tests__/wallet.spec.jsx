@@ -3,13 +3,12 @@ import { mount, shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
-import { Router } from 'react-router-dom'
 
-import { MaterialUIWrapper } from '../../tests/wrapper'
-import { history, constants } from '../__data__'
-import App from '../app'
+import { MaterialUIWrapper } from '../../../../../../tests/wrapper'
+import { constants } from '../../../../../__data__'
+import Wallet from '../wallet'
 
-describe('<App />', () => {
+describe('<Wallet />', () => {
   const Wrapper = ({ children }) => {
     const mockStore = configureStore()
     const store = mockStore({
@@ -25,19 +24,6 @@ describe('<App />', () => {
             currency: 'EUR',
           },
         },
-      },
-      priceRatio: {
-        entities: {
-          from: '5',
-          to: '6',
-        },
-      },
-      exchangeRate: {
-        loading: false,
-        entities: {
-          rate: 0,
-        },
-        error: '',
       },
       wallet: {
         loading: false,
@@ -57,29 +43,42 @@ describe('<App />', () => {
         ],
         error: '',
       },
-      notification: {
-        show: false,
-        type: '',
-        message: '',
-      },
     })
 
-    return (
-      <MaterialUIWrapper>
-        <Provider store={store}>
-          <Router history={history}>{children}</Router>
-        </Provider>
-      </MaterialUIWrapper>
-    )
+    return <Provider store={store}>{children}</Provider>
   }
 
   it('should be defined', () => {
     const component = shallow(
-      <Wrapper>
-        <App />
-      </Wrapper>,
+      <MaterialUIWrapper>
+        <Wrapper>
+          <Wallet />
+        </Wrapper>
+      </MaterialUIWrapper>,
     )
 
     expect(component).toBeDefined()
+  })
+
+  it('should return text', () => {
+    const wrapper = mount(
+      <MaterialUIWrapper>
+        <Wrapper>
+          <Wallet />
+        </Wrapper>
+      </MaterialUIWrapper>,
+    )
+    expect(wrapper.text()).toBe('Balance123 $456 €')
+  })
+
+  it('snapshot', () => {
+    const wrapper = mount(
+      <MaterialUIWrapper>
+        <Wrapper>
+          <Wallet />
+        </Wrapper>
+      </MaterialUIWrapper>,
+    )
+    expect(toJson(wrapper)).toMatchSnapshot()
   })
 })

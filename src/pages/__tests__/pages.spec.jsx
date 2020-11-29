@@ -1,15 +1,14 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import toJson from 'enzyme-to-json'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { Router } from 'react-router-dom'
 
-import { MaterialUIWrapper } from '../../tests/wrapper'
-import { history, constants } from '../__data__'
-import App from '../app'
+import { MaterialUIWrapper } from '../../../tests/wrapper'
+import { history, constants } from '../../__data__'
+import Pages from '../pages'
 
-describe('<App />', () => {
+describe('<Pages />', () => {
   const Wrapper = ({ children }) => {
     const mockStore = configureStore()
     const store = mockStore({
@@ -76,10 +75,22 @@ describe('<App />', () => {
   it('should be defined', () => {
     const component = shallow(
       <Wrapper>
-        <App />
+        <Pages />
       </Wrapper>,
     )
 
     expect(component).toBeDefined()
+  })
+
+  it('should return text', () => {
+    const component = mount(
+      <Wrapper>
+        <Pages />
+      </Wrapper>,
+    )
+
+    expect(component.text()).toBe(
+      'ExchangeBalance123 $456 €USD1 $ = 6 €EUR1 € = 5 $transfer payment',
+    )
   })
 })

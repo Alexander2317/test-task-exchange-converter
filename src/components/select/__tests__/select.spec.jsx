@@ -1,16 +1,12 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import toJson from 'enzyme-to-json'
 
+import { MaterialUIWrapper } from '../../../../tests/wrapper'
 import Select from '../select'
 
 describe('<Select />', () => {
   it('should be defined', () => {
-    const theme = createMuiTheme({
-      palette: {
-        type: 'dark',
-      },
-    })
     const props = {
       id: 'test',
       value: 'usd',
@@ -24,20 +20,15 @@ describe('<Select />', () => {
       ],
     }
     const component = mount(
-      <ThemeProvider theme={theme}>
+      <MaterialUIWrapper>
         <Select {...props} />
-      </ThemeProvider>,
+      </MaterialUIWrapper>,
     )
 
     expect(component).toBeDefined()
   })
 
   it('should return correct values', () => {
-    const theme = createMuiTheme({
-      palette: {
-        type: 'dark',
-      },
-    })
     const props = {
       id: 'test',
       value: 'test',
@@ -51,11 +42,33 @@ describe('<Select />', () => {
       ],
     }
     const component = mount(
-      <ThemeProvider theme={theme}>
+      <MaterialUIWrapper>
         <Select {...props} />
-      </ThemeProvider>,
+      </MaterialUIWrapper>,
     )
 
     expect(component.find('div#test').at(0).text()).toBe('test')
+  })
+
+  it('snapshot', () => {
+    const props = {
+      id: 'test',
+      value: 'test',
+      name: 'select',
+      onChange: jest.fn(),
+      options: [
+        {
+          value: 'test',
+          label: 'test',
+        },
+      ],
+    }
+    const component = mount(
+      <MaterialUIWrapper>
+        <Select {...props} />
+      </MaterialUIWrapper>,
+    )
+
+    expect(toJson(component)).toMatchSnapshot()
   })
 })
