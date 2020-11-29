@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import React from 'react'
 
 const MaterialUIWrapper = ({ children }) => {
   const theme = createMuiTheme({

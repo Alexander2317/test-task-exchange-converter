@@ -57,6 +57,7 @@
       "import/no-extraneous-dependencies": ["error", { "packageDir": ".", "devDependencies": true }],
       "react/prefer-stateless-function": "off",
       "import/prefer-default-export": "off",
-      "react/jsx-props-no-spreading": "off"
+      "react/jsx-props-no-spreading": "off",
+      "react/prop-types": "off"
   }
 }

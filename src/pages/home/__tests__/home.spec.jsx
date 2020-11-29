@@ -86,7 +86,9 @@ describe('<Home />', () => {
       </MaterialUIWrapper>,
     )
 
-    expect(component.text()).toBe('ExchangeBalance123 $456 €USD1 $ = 6 €EUR1 € = 5 $transfer payment')
+    expect(component.text()).toBe(
+      'ExchangeBalance123 $456 €USD1 $ = 6 €EUR1 € = 5 $transfer payment',
+    )
   })
 
   it('snapshot', () => {

@@ -1,6 +1,5 @@
-import React from 'react'
-import { mount, shallow } from 'enzyme'
-import toJson from 'enzyme-to-json'
+import * as React from 'react'
+import { shallow } from 'enzyme'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import { Router } from 'react-router-dom'

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { mount, shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import { Provider } from 'react-redux'
@@ -17,9 +17,7 @@ describe('<NotFound />', () => {
     return (
       <MaterialUIWrapper>
         <Provider store={store}>
-          <Router history={history}>
-            {children}
-          </Router>
+          <Router history={history}>{children}</Router>
         </Provider>
       </MaterialUIWrapper>
     )

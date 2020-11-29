@@ -46,7 +46,9 @@ describe('<Control />', () => {
     )
 
     expect(component.find('input[name="inputName"]').props().value).toBe('12')
-    expect(component.find('input[name="selectName"]').props().value).toBe('selectValue')
+    expect(component.find('input[name="selectName"]').props().value).toBe(
+      'selectValue',
+    )
   })
 
   it('snapshot', () => {
