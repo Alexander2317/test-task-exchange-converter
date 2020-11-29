@@ -34,7 +34,7 @@ module.exports = {
     [
       'jest-junit',
       {
-        suiteName: 'revolut-test-task',
+        suiteName: 'test-task-exchange-converter',
         outputDirectory: './coverage',
         outputName: 'junit.xml',
         uniqueOutputName: false,

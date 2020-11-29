@@ -685,7 +685,7 @@ exports[`<NotFound /> snapshot 1`] = `
                                 "render": [Function],
                               }
                             }
-                            to="/test-task-revolut/"
+                            to="/test-task-exchange-converter/"
                             variant="outlined"
                           >
                             <ForwardRef(Button)
@@ -735,7 +735,7 @@ exports[`<NotFound /> snapshot 1`] = `
                                   "render": [Function],
                                 }
                               }
-                              to="/test-task-revolut/"
+                              to="/test-task-exchange-converter/"
                               variant="outlined"
                             >
                               <WithStyles(ForwardRef(ButtonBase))
@@ -756,7 +756,7 @@ exports[`<NotFound /> snapshot 1`] = `
                                 disabled={false}
                                 focusRipple={true}
                                 focusVisibleClassName="Mui-focusVisible"
-                                to="/test-task-revolut/"
+                                to="/test-task-exchange-converter/"
                                 type="button"
                               >
                                 <ForwardRef(ButtonBase)
@@ -784,7 +784,7 @@ exports[`<NotFound /> snapshot 1`] = `
                                   disabled={false}
                                   focusRipple={true}
                                   focusVisibleClassName="Mui-focusVisible"
-                                  to="/test-task-revolut/"
+                                  to="/test-task-exchange-converter/"
                                   type="button"
                                 >
                                   <Link
@@ -803,12 +803,12 @@ exports[`<NotFound /> snapshot 1`] = `
                                     onTouchStart={[Function]}
                                     role="button"
                                     tabIndex={0}
-                                    to="/test-task-revolut/"
+                                    to="/test-task-exchange-converter/"
                                   >
                                     <LinkAnchor
                                       aria-disabled={false}
                                       className="MuiButtonBase-root MuiButton-root MuiButton-outlined"
-                                      href="/test-task-revolut/"
+                                      href="/test-task-exchange-converter/"
                                       navigate={[Function]}
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
@@ -827,7 +827,7 @@ exports[`<NotFound /> snapshot 1`] = `
                                       <a
                                         aria-disabled={false}
                                         className="MuiButtonBase-root MuiButton-root MuiButton-outlined"
-                                        href="/test-task-revolut/"
+                                        href="/test-task-exchange-converter/"
                                         onBlur={[Function]}
                                         onClick={[Function]}
                                         onDragLeave={[Function]}

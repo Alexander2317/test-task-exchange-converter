@@ -1,4 +1,4 @@
-<h1>Test task for Revolut</h1>
+<h1>Test task for Converter</h1>
 
 Settings for launch
 -----------------------------------
@@ -11,4 +11,4 @@ Settings for launch
 
 Demo
 -----------------------------------
-https://alexander2317.github.io/test-task-revolut/
+https://alexander2317.github.io/test-task-exchange-converter/

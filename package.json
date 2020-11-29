@@ -1,18 +1,18 @@
 {
-  "name": "revolut-test-task",
+  "name": "test-task-exchange-converter",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Alexander2317",
   "license": "ISC",
-  "homepage": "https://github.com/Alexander2317/revolut-test-task#readme",
+  "homepage": "https://github.com/Alexander2317/test-task-exchange-converter#readme",
   "description": "Test task for Revolut",
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alexander2317/revolut-test-task.git"
+    "url": "git+https://github.com/Alexander2317/test-task-exchange-converter.git"
   },
   "bugs": {
-    "url": "https://github.com/Alexander2317/revolut-test-task/issues"
+    "url": "https://github.com/Alexander2317/test-task-exchange-converter/issues"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
