@@ -5,41 +5,6 @@ import { converter as converterSelectors, priceRation } from '../../selectors'
 import { changeAmount, updateAmount, changeCurrency } from '../converter'
 
 describe('converter Saga', () => {
-  it('changeAmount check exactly the same values', () => {
-    const action = {
-      payload: { type: 'from', value: '0' },
-    }
-    const saga = changeAmount(action)
-
-    expect(saga.next().value).toEqual(
-      select(converterSelectors.getEntitiesSelector),
-    )
-    const converterEntities = {
-      activeType: 'from',
-      from: {
-        currency: 'USD',
-        amount: '0',
-      },
-      to: {
-        currency: 'EUR',
-        amount: '0',
-      },
-    }
-    const priceRatioEntities = {
-      from: '1',
-      to: '2',
-    }
-    expect(saga.next(converterEntities).value).toEqual(
-      select(priceRation.getEntitiesSelector),
-    )
-    expect(saga.next(priceRatioEntities).value).toEqual(
-      put({
-        type: actionTypes.AMOUNT_IS_THE_SAME,
-      }),
-    )
-    expect(saga.next().done).toBe(true)
-  })
-
   it('changeAmount count type from', () => {
     const action = {
       payload: { type: 'from', value: '1' },
