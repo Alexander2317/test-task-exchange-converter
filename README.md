@@ -1,4 +1,4 @@
-<h1>Test task for Converter</h1>
+<h1>Test task exchange converter</h1>
 
 Settings for launch
 -----------------------------------
