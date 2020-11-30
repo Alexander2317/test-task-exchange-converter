@@ -25,12 +25,6 @@ export function* changeAmount(
   const { from, to } = yield select(converter.getEntitiesSelector)
   const { to: toRatio } = yield select(priceRation.getEntitiesSelector)
 
-  if (from.amount === value || to.amount === value) {
-    return yield put({
-      type: actionTypes.AMOUNT_IS_THE_SAME,
-    })
-  }
-
   if (type === converterTypes.FROM) {
     const countToAmount = new BigNumber(value)
       .multipliedBy(toRatio)
