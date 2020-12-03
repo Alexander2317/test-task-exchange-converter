@@ -1,16 +1,17 @@
-import { actionTypes } from '../../constants'
+import { currencies } from '../../../config'
+import { actionTypes, converterTypes, base } from '../../constants'
 import converter from '../converter'
 
 const initialState = {
   entities: {
-    activeType: 'from',
+    activeType: converterTypes.FROM,
     from: {
-      amount: '0',
-      currency: 'USD',
+      amount: base.ZERO,
+      currency: currencies.USD,
     },
     to: {
-      amount: '0',
-      currency: 'EUR',
+      amount: base.ZERO,
+      currency: currencies.EUR,
     },
   },
 }
@@ -30,14 +31,14 @@ describe('converter Reducer', () => {
     const action = {
       type: actionTypes.CHANGE_AMOUNT_SUCCESS,
       payload: {
-        activeType: 'to',
+        activeType: converterTypes.TO,
         from: {
           amount: '123',
-          currency: 'USD',
+          currency: currencies.USD,
         },
         to: {
           amount: '456',
-          currency: 'EUR',
+          currency: currencies.EUR,
         },
       },
     }
@@ -63,14 +64,14 @@ describe('converter Reducer', () => {
     const action = {
       type: actionTypes.CHANGE_CURRENCY_SUCCESS,
       payload: {
-        activeType: 'from',
+        activeType: converterTypes.FROM,
         from: {
           amount: '123',
-          currency: 'EUR',
+          currency: currencies.EUR,
         },
         to: {
           amount: '456',
-          currency: 'USD',
+          currency: currencies.USD,
         },
       },
     }

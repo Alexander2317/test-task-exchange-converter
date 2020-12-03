@@ -811,7 +811,7 @@ exports[`<Home /> snapshot 1`] = `
                                     }
                                     exchangeRateLoading={false}
                                     getRateAction={[Function]}
-                                    priceRationEntities={
+                                    priceRatioEntities={
                                       Object {
                                         "from": "5",
                                         "to": "6",
@@ -1111,7 +1111,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                 autoComplete="off"
                                                                 id="amount-from"
                                                                 name="amount-from"
-                                                                onBlur={[Function]}
                                                                 onChange={[Function]}
                                                                 value="0"
                                                               >
@@ -1137,7 +1136,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                   }
                                                                   id="amount-from"
                                                                   name="amount-from"
-                                                                  onBlur={[Function]}
                                                                   onChange={[Function]}
                                                                   value="0"
                                                                 >
@@ -1166,7 +1164,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                     inputComponent="input"
                                                                     multiline={false}
                                                                     name="amount-from"
-                                                                    onBlur={[Function]}
                                                                     onChange={[Function]}
                                                                     type="text"
                                                                     value="0"
@@ -1200,7 +1197,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                       inputComponent="input"
                                                                       multiline={false}
                                                                       name="amount-from"
-                                                                      onBlur={[Function]}
                                                                       onChange={[Function]}
                                                                       type="text"
                                                                       value="0"
@@ -2598,7 +2594,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                 autoComplete="off"
                                                                 id="amount-to"
                                                                 name="amount-to"
-                                                                onBlur={[Function]}
                                                                 onChange={[Function]}
                                                                 value="0"
                                                               >
@@ -2624,7 +2619,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                   }
                                                                   id="amount-to"
                                                                   name="amount-to"
-                                                                  onBlur={[Function]}
                                                                   onChange={[Function]}
                                                                   value="0"
                                                                 >
@@ -2653,7 +2647,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                     inputComponent="input"
                                                                     multiline={false}
                                                                     name="amount-to"
-                                                                    onBlur={[Function]}
                                                                     onChange={[Function]}
                                                                     type="text"
                                                                     value="0"
@@ -2687,7 +2680,6 @@ exports[`<Home /> snapshot 1`] = `
                                                                       inputComponent="input"
                                                                       multiline={false}
                                                                       name="amount-to"
-                                                                      onBlur={[Function]}
                                                                       onChange={[Function]}
                                                                       type="text"
                                                                       value="0"
@@ -3813,12 +3805,6 @@ exports[`<Home /> snapshot 1`] = `
                                 }
                                 exchangeRateLoading={false}
                                 loadingPayment={false}
-                                priceRationEntities={
-                                  Object {
-                                    "from": "5",
-                                    "to": "6",
-                                  }
-                                }
                                 transferPaymentAction={[Function]}
                               >
                                 <WithStyles(ForwardRef(Button))

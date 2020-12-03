@@ -1,5 +1,6 @@
 import { put, call, select, delay } from 'redux-saga/effects'
 
+import { currencies } from '../../../config'
 import { converter } from '../../selectors'
 import {
   actionTypes,
@@ -7,10 +8,11 @@ import {
   messages,
   notification,
   routes,
+  converterTypes,
 } from '../../constants'
 import { getExchangeRate } from '../exchange-rate'
 import { fetchApi } from '../utils'
-import priceRation from '../price-ratio'
+import priceRatio from '../price-ratio'
 import { updateAmount } from '../converter'
 import { notificationToggle } from '../notification'
 
@@ -22,13 +24,13 @@ describe('priceRatio Saga', () => {
   it('getExchangeRate success response', () => {
     const saga = getExchangeRate()
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
@@ -40,12 +42,15 @@ describe('priceRatio Saga', () => {
       }),
     )
     expect(saga.next().value).toEqual(
-      call(fetchApi, `${routes.api}?base=USD&symbols=EUR`),
+      call(
+        fetchApi,
+        `${routes.api}?base=${currencies.USD}&symbols=${currencies.EUR}`,
+      ),
     )
     const data = {
       data: {
         rates: { EUR: 0.5 },
-        base: 'USD',
+        base: currencies.USD,
         date: '2020-11-27',
       },
     }
@@ -55,8 +60,10 @@ describe('priceRatio Saga', () => {
         payload: { rate: 0.5 },
       }),
     )
-    expect(saga.next(data).value).toEqual(call(priceRation, 0.5))
-    expect(saga.next(data).value).toEqual(call(updateAmount, 'from'))
+    expect(saga.next(data).value).toEqual(call(priceRatio, 0.5))
+    expect(saga.next(data).value).toEqual(
+      call(updateAmount, converterTypes.FROM),
+    )
     expect(saga.next(data).value).toEqual(delay(base.DELAY_REFETCH_RATE))
     expect(saga.next(data).value).toEqual(
       put({
@@ -69,13 +76,13 @@ describe('priceRatio Saga', () => {
   it('getExchangeRate response failed', () => {
     const saga = getExchangeRate()
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
@@ -87,7 +94,10 @@ describe('priceRatio Saga', () => {
       }),
     )
     expect(saga.next().value).toEqual(
-      call(fetchApi, `${routes.api}?base=USD&symbols=EUR`),
+      call(
+        fetchApi,
+        `${routes.api}?base=${currencies.USD}&symbols=${currencies.EUR}`,
+      ),
     )
     const data = {
       data: {},

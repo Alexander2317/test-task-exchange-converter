@@ -1,3 +1,4 @@
+import { currencies } from '../../../config'
 import { actionTypes } from '../../constants'
 import wallet from '../wallet'
 
@@ -5,15 +6,15 @@ const initialState = {
   loading: false,
   entities: [
     {
-      currency: 'USD',
+      currency: currencies.USD,
       balance: '123.00',
     },
     {
-      currency: 'EUR',
+      currency: currencies.EUR,
       balance: '456.00',
     },
     {
-      currency: 'GBP',
+      currency: currencies.GBP,
       balance: '789.00',
     },
   ],
@@ -50,15 +51,15 @@ describe('wallet Reducer', () => {
       payload: {
         entities: [
           {
-            currency: 'USD',
+            currency: currencies.USD,
             balance: '122.00',
           },
           {
-            currency: 'EUR',
+            currency: currencies.EUR,
             balance: '457.00',
           },
           {
-            currency: 'GBP',
+            currency: currencies.GBP,
             balance: '789.00',
           },
         ],

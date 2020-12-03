@@ -581,7 +581,6 @@ exports[`<Control /> snapshot 1`] = `
                                 autoComplete="off"
                                 id="inputId"
                                 name="inputName"
-                                onBlur={[Function]}
                                 onChange={[Function]}
                                 value="12"
                               >
@@ -607,7 +606,6 @@ exports[`<Control /> snapshot 1`] = `
                                   }
                                   id="inputId"
                                   name="inputName"
-                                  onBlur={[Function]}
                                   onChange={[Function]}
                                   value="12"
                                 >
@@ -636,7 +634,6 @@ exports[`<Control /> snapshot 1`] = `
                                     inputComponent="input"
                                     multiline={false}
                                     name="inputName"
-                                    onBlur={[Function]}
                                     onChange={[Function]}
                                     type="text"
                                     value="12"
@@ -670,7 +667,6 @@ exports[`<Control /> snapshot 1`] = `
                                       inputComponent="input"
                                       multiline={false}
                                       name="inputName"
-                                      onBlur={[Function]}
                                       onChange={[Function]}
                                       type="text"
                                       value="12"

@@ -323,7 +323,6 @@ exports[`<Money /> snapshot 1`] = `
               autoComplete="off"
               id="test"
               name="test-input"
-              onBlur={[Function]}
               onChange={[Function]}
               value="0"
             >
@@ -349,7 +348,6 @@ exports[`<Money /> snapshot 1`] = `
                 }
                 id="test"
                 name="test-input"
-                onBlur={[Function]}
                 onChange={[Function]}
                 value="0"
               >
@@ -378,7 +376,6 @@ exports[`<Money /> snapshot 1`] = `
                   inputComponent="input"
                   multiline={false}
                   name="test-input"
-                  onBlur={[Function]}
                   onChange={[Function]}
                   type="text"
                   value="0"
@@ -412,7 +409,6 @@ exports[`<Money /> snapshot 1`] = `
                     inputComponent="input"
                     multiline={false}
                     name="test-input"
-                    onBlur={[Function]}
                     onChange={[Function]}
                     type="text"
                     value="0"

@@ -1,15 +1,15 @@
 // @flow
 
-import type { PriceRation } from '../../types/common'
+import type { PriceRatio } from '../../types/common'
 import { actionTypes } from '../constants'
 
 type State = {
-  entities: PriceRation,
+  entities: PriceRatio,
 }
 
 type Action = {
   type: string,
-  payload: PriceRation,
+  payload: PriceRatio,
 }
 
 const initialState = {
@@ -19,7 +19,7 @@ const initialState = {
   },
 }
 
-const priceRation = (state: State = initialState, action: Action): State => {
+const priceRatio = (state: State = initialState, action: Action): State => {
   const { type, payload } = action
 
   switch (type) {
@@ -35,4 +35,4 @@ const priceRation = (state: State = initialState, action: Action): State => {
   }
 }
 
-export default priceRation
+export default priceRatio

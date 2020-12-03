@@ -14,7 +14,7 @@ export type ConverterDataParams = {
   currency: Currency,
 }
 
-export type PriceRation = {
+export type PriceRatio = {
   from: string,
   to: string,
 }

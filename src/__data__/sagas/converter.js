@@ -4,7 +4,7 @@ import { put, select, call, takeEvery } from 'redux-saga/effects'
 import BigNumber from 'bignumber.js'
 
 import { bignumberConfig, currencies } from '../../config'
-import { converter, priceRation } from '../selectors'
+import { converter, exchangeRate } from '../selectors'
 import { actionTypes, converterTypes } from '../constants'
 
 import { getFirstNonRepeatingElement } from './utils'
@@ -23,11 +23,11 @@ export function* changeAmount(
     payload: { type, value },
   } = action
   const { from, to } = yield select(converter.getEntitiesSelector)
-  const { to: toRatio } = yield select(priceRation.getEntitiesSelector)
+  const { rate } = yield select(exchangeRate.getEntitiesSelector)
 
   if (type === converterTypes.FROM) {
     const countToAmount = new BigNumber(value)
-      .multipliedBy(toRatio)
+      .multipliedBy(rate)
       .toFixed(bignumberConfig.base.DECIMAL_PLACES)
 
     return yield put({
@@ -46,7 +46,7 @@ export function* changeAmount(
     })
   }
   const countFromAmount = new BigNumber(value)
-    .dividedBy(toRatio)
+    .dividedBy(rate)
     .toFixed(bignumberConfig.base.DECIMAL_PLACES)
 
   return yield put({
@@ -97,12 +97,12 @@ export function* changeCurrency(
   const {
     payload: { type, value },
   } = action
-  const { from, to } = yield select(converter.getEntitiesSelector)
+  const { activeType, from, to } = yield select(converter.getEntitiesSelector)
   if (type === converterTypes.FROM) {
     let formattedCurrencies = {}
     if (value === to.currency) {
       formattedCurrencies = {
-        activeType: type,
+        activeType,
         from: {
           ...from,
           currency: value,
@@ -117,7 +117,7 @@ export function* changeCurrency(
       }
     } else {
       formattedCurrencies = {
-        activeType: type,
+        activeType,
         from: {
           ...from,
           currency: value,
@@ -137,7 +137,7 @@ export function* changeCurrency(
   let formattedCurrencies = {}
   if (value === from.currency) {
     formattedCurrencies = {
-      activeType: type,
+      activeType,
       from: {
         ...from,
         currency: getFirstNonRepeatingElement({
@@ -152,7 +152,7 @@ export function* changeCurrency(
     }
   } else {
     formattedCurrencies = {
-      activeType: type,
+      activeType,
       from,
       to: {
         ...to,

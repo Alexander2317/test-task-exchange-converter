@@ -1,13 +1,14 @@
 import { put, select, call } from 'redux-saga/effects'
 
-import { actionTypes } from '../../constants'
-import { converter as converterSelectors, priceRation } from '../../selectors'
+import { currencies } from '../../../config'
+import { actionTypes, base, converterTypes } from '../../constants'
+import { converter as converterSelectors, exchangeRate } from '../../selectors'
 import { changeAmount, updateAmount, changeCurrency } from '../converter'
 
 describe('converter Saga', () => {
   it('changeAmount count type from', () => {
     const action = {
-      payload: { type: 'from', value: '1' },
+      payload: { type: converterTypes.FROM, value: '1' },
     }
     const saga = changeAmount(action)
 
@@ -15,35 +16,34 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
-        amount: '0',
+        currency: currencies.USD,
+        amount: base.ZERO,
       },
       to: {
-        currency: 'EUR',
-        amount: '0',
+        currency: currencies.EUR,
+        amount: base.ZERO,
       },
     }
-    const priceRatioEntities = {
-      from: '1',
-      to: '2',
+    const exchangeRateEntities = {
+      rate: 1,
     }
     expect(saga.next(converterEntities).value).toEqual(
-      select(priceRation.getEntitiesSelector),
+      select(exchangeRate.getEntitiesSelector),
     )
-    expect(saga.next(priceRatioEntities).value).toEqual(
+    expect(saga.next(exchangeRateEntities).value).toEqual(
       put({
         type: actionTypes.CHANGE_AMOUNT_SUCCESS,
         payload: {
-          activeType: 'from',
+          activeType: converterTypes.FROM,
           from: {
             amount: '1',
-            currency: 'USD',
+            currency: currencies.USD,
           },
           to: {
-            amount: '2.00',
-            currency: 'EUR',
+            amount: '1.00',
+            currency: currencies.EUR,
           },
         },
       }),
@@ -53,7 +53,7 @@ describe('converter Saga', () => {
 
   it('changeAmount count type to', () => {
     const action = {
-      payload: { type: 'to', value: '1' },
+      payload: { type: converterTypes.TO, value: '1' },
     }
     const saga = changeAmount(action)
 
@@ -61,35 +61,34 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'to',
+      activeType: converterTypes.TO,
       from: {
-        currency: 'USD',
-        amount: '0',
+        currency: currencies.USD,
+        amount: base.ZERO,
       },
       to: {
-        currency: 'EUR',
-        amount: '0',
+        currency: currencies.EUR,
+        amount: base.ZERO,
       },
     }
-    const priceRatioEntities = {
-      from: '1',
-      to: '2',
+    const exchangeRateEntities = {
+      rate: 1,
     }
     expect(saga.next(converterEntities).value).toEqual(
-      select(priceRation.getEntitiesSelector),
+      select(exchangeRate.getEntitiesSelector),
     )
-    expect(saga.next(priceRatioEntities).value).toEqual(
+    expect(saga.next(exchangeRateEntities).value).toEqual(
       put({
         type: actionTypes.CHANGE_AMOUNT_SUCCESS,
         payload: {
-          activeType: 'to',
+          activeType: converterTypes.TO,
           from: {
-            amount: '0.50',
-            currency: 'USD',
+            amount: '1.00',
+            currency: currencies.USD,
           },
           to: {
             amount: '1',
-            currency: 'EUR',
+            currency: currencies.EUR,
           },
         },
       }),
@@ -104,14 +103,14 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
-        amount: '0',
+        currency: currencies.USD,
+        amount: base.ZERO,
       },
       to: {
-        currency: 'EUR',
-        amount: '0',
+        currency: currencies.EUR,
+        amount: base.ZERO,
       },
     }
     expect(saga.next(converterEntities).value).toEqual(
@@ -129,19 +128,19 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
     expect(saga.next(converterEntities).value).toEqual(
       call(changeAmount, {
-        payload: { type: 'from', value: '1' },
+        payload: { type: converterTypes.FROM, value: '1' },
       }),
     )
     expect(saga.next().done).toBe(true)
@@ -154,19 +153,19 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'to',
+      activeType: converterTypes.TO,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
     expect(saga.next(converterEntities).value).toEqual(
       call(changeAmount, {
-        payload: { type: 'to', value: '2' },
+        payload: { type: converterTypes.TO, value: '2' },
       }),
     )
     expect(saga.next().done).toBe(true)
@@ -174,7 +173,7 @@ describe('converter Saga', () => {
 
   it('changeCurrency set type from', () => {
     const action = {
-      payload: { type: 'from', value: 'GBP' },
+      payload: { type: converterTypes.FROM, value: currencies.GBP },
     }
     const saga = changeCurrency(action)
 
@@ -182,13 +181,13 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
@@ -197,13 +196,13 @@ describe('converter Saga', () => {
       put({
         type: actionTypes.CHANGE_CURRENCY_SUCCESS,
         payload: {
-          activeType: 'from',
+          activeType: converterTypes.FROM,
           from: {
-            currency: 'GBP',
+            currency: currencies.GBP,
             amount: '1',
           },
           to: {
-            currency: 'EUR',
+            currency: currencies.EUR,
             amount: '2',
           },
         },
@@ -214,7 +213,7 @@ describe('converter Saga', () => {
 
   it('changeCurrency set type from with exactly the same currency', () => {
     const action = {
-      payload: { type: 'from', value: 'EUR' },
+      payload: { type: converterTypes.FROM, value: currencies.EUR },
     }
     const saga = changeCurrency(action)
 
@@ -222,13 +221,13 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
@@ -237,13 +236,13 @@ describe('converter Saga', () => {
       put({
         type: actionTypes.CHANGE_CURRENCY_SUCCESS,
         payload: {
-          activeType: 'from',
+          activeType: converterTypes.FROM,
           from: {
-            currency: 'EUR',
+            currency: currencies.EUR,
             amount: '1',
           },
           to: {
-            currency: 'USD',
+            currency: currencies.USD,
             amount: '2',
           },
         },
@@ -254,7 +253,7 @@ describe('converter Saga', () => {
 
   it('changeCurrency set type to', () => {
     const action = {
-      payload: { type: 'to', value: 'GBP' },
+      payload: { type: converterTypes.TO, value: currencies.GBP },
     }
     const saga = changeCurrency(action)
 
@@ -262,13 +261,13 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
@@ -277,13 +276,13 @@ describe('converter Saga', () => {
       put({
         type: actionTypes.CHANGE_CURRENCY_SUCCESS,
         payload: {
-          activeType: 'to',
+          activeType: converterTypes.FROM,
           from: {
-            currency: 'USD',
+            currency: currencies.USD,
             amount: '1',
           },
           to: {
-            currency: 'GBP',
+            currency: currencies.GBP,
             amount: '2',
           },
         },
@@ -294,7 +293,7 @@ describe('converter Saga', () => {
 
   it('changeCurrency set type to with exactly the same currency', () => {
     const action = {
-      payload: { type: 'to', value: 'USD' },
+      payload: { type: converterTypes.TO, value: currencies.USD },
     }
     const saga = changeCurrency(action)
 
@@ -302,13 +301,13 @@ describe('converter Saga', () => {
       select(converterSelectors.getEntitiesSelector),
     )
     const converterEntities = {
-      activeType: 'from',
+      activeType: converterTypes.FROM,
       from: {
-        currency: 'USD',
+        currency: currencies.USD,
         amount: '1',
       },
       to: {
-        currency: 'EUR',
+        currency: currencies.EUR,
         amount: '2',
       },
     }
@@ -317,13 +316,13 @@ describe('converter Saga', () => {
       put({
         type: actionTypes.CHANGE_CURRENCY_SUCCESS,
         payload: {
-          activeType: 'to',
+          activeType: converterTypes.FROM,
           from: {
-            currency: 'EUR',
+            currency: currencies.EUR,
             amount: '1',
           },
           to: {
-            currency: 'USD',
+            currency: currencies.USD,
             amount: '2',
           },
         },
