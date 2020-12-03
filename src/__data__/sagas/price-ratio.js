@@ -7,13 +7,10 @@ import { bignumberConfig } from '../../config'
 import { actionTypes } from '../constants'
 
 function* saga(rate: number): Generator<Object, void, any> {
-  const to = new BigNumber(rate)
-    .precision(bignumberConfig.base.PRECISION)
-    .toFixed(bignumberConfig.base.DECIMAL_PLACES)
-
   const from = new BigNumber(1)
-    .dividedBy(to)
+    .dividedBy(rate)
     .toFixed(bignumberConfig.base.DECIMAL_PLACES)
+  const to = new BigNumber(rate).toFixed(bignumberConfig.base.DECIMAL_PLACES)
 
   yield put({
     type: actionTypes.COUNT_PRICE_RATIO,

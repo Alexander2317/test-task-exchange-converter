@@ -1,16 +1,18 @@
 // @flow
 
+import { USD, EUR, GBP } from './currencies'
+
 const walletList = [
   {
-    currency: 'USD',
+    currency: USD,
     balance: '18000.00',
   },
   {
-    currency: 'EUR',
+    currency: EUR,
     balance: '19000.00',
   },
   {
-    currency: 'GBP',
+    currency: GBP,
     balance: '20000.00',
   },
 ]

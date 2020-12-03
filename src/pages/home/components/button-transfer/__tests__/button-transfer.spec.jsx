@@ -40,12 +40,6 @@ describe('<ButtonTransfer />', () => {
           },
         },
       },
-      priceRatio: {
-        entities: {
-          from: '5',
-          to: '6',
-        },
-      },
       exchangeRate: {
         loading: false,
         entities: {
@@ -98,12 +92,6 @@ describe('<ButtonTransfer />', () => {
             amount: constants.base.ZERO,
             currency: 'EUR',
           },
-        },
-      },
-      priceRatio: {
-        entities: {
-          from: '5',
-          to: '6',
         },
       },
       exchangeRate: {

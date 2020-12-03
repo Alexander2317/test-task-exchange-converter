@@ -1,5 +1,5 @@
 import { actionTypes } from '../../constants'
-import priceRation from '../price-ratio'
+import priceRatio from '../price-ratio'
 
 const initialState = {
   entities: {
@@ -8,14 +8,14 @@ const initialState = {
   },
 }
 
-describe('priceRation Reducer', () => {
+describe('priceRatio Reducer', () => {
   it('should return initialState', () => {
     const action = {
       type: 'test',
       payload: {},
     }
 
-    const reducer = priceRation(initialState, action)
+    const reducer = priceRatio(initialState, action)
     expect(reducer).toStrictEqual(initialState)
   })
 
@@ -28,7 +28,7 @@ describe('priceRation Reducer', () => {
       },
     }
 
-    const reducer = priceRation(initialState, action)
+    const reducer = priceRatio(initialState, action)
     expect(reducer).toStrictEqual({
       entities: {
         ...action.payload,

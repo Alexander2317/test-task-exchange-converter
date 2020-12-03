@@ -325,12 +325,6 @@ exports[`<ButtonTransfer /> snapshot 1`] = `
           }
           exchangeRateLoading={false}
           loadingPayment={false}
-          priceRationEntities={
-            Object {
-              "from": "5",
-              "to": "6",
-            }
-          }
           transferPaymentAction={[Function]}
         >
           <WithStyles(ForwardRef(Button))

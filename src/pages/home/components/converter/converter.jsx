@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import type { ConverterDataParams, PriceRation } from '../../../../types/common'
+import type { ConverterDataParams, PriceRatio } from '../../../../types/common'
 import { currencies, currencySymbols } from '../../../../config'
 import { actions, constants, selectors } from '../../../../__data__'
 import { RateRatio } from '../../../../components'
@@ -15,7 +15,7 @@ type Props = {
     from: ConverterDataParams,
     to: ConverterDataParams,
   },
-  priceRationEntities: PriceRation,
+  priceRatioEntities: PriceRatio,
   changeAmountAction: Function,
   changeCurrencyAction: Function,
   getRateAction: Function,
@@ -25,7 +25,7 @@ type Props = {
 const Converter = (props: Props): React.Node => {
   const {
     converterEntities,
-    priceRationEntities,
+    priceRatioEntities,
     changeAmountAction,
     changeCurrencyAction,
     getRateAction,
@@ -67,7 +67,7 @@ const Converter = (props: Props): React.Node => {
         loading={exchangeRateLoading}
         currencySymbolLeft={currencySymbolFrom}
         currencySymbolRight={currencySymbolTo}
-        rate={priceRationEntities.to}
+        rate={priceRatioEntities.to}
       />
       <Control
         inputId="amount-to"
@@ -84,7 +84,7 @@ const Converter = (props: Props): React.Node => {
         loading={exchangeRateLoading}
         currencySymbolLeft={currencySymbolTo}
         currencySymbolRight={currencySymbolFrom}
-        rate={priceRationEntities.from}
+        rate={priceRatioEntities.from}
       />
     </>
   )
@@ -92,7 +92,7 @@ const Converter = (props: Props): React.Node => {
 
 const mapStateToProps = (state) => ({
   converterEntities: selectors.converter.getEntitiesSelector(state),
-  priceRationEntities: selectors.priceRation.getEntitiesSelector(state),
+  priceRatioEntities: selectors.priceRatio.getEntitiesSelector(state),
   exchangeRateLoading: selectors.exchangeRate.getLoadingSelector(state),
 })
 

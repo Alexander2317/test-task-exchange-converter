@@ -4,9 +4,7 @@ import * as React from 'react'
 import Input from '@material-ui/core/Input'
 import FormControl from '@material-ui/core/FormControl'
 import makeStyles from '@material-ui/styles/makeStyles'
-import BigNumber from 'bignumber.js'
 
-import { bignumberConfig } from '../../../config'
 import { constants } from '../../../__data__'
 
 const useStyles = makeStyles({
@@ -50,13 +48,6 @@ const Money = ({ id, name, value, handleChange }: Props): React.Node => {
     return handleChange(formattedValue)
   }
 
-  const onBlur = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    const formattedValue = new BigNumber(event.target.value).toFormat(
-      bignumberConfig.base.DECIMAL_PLACES,
-    )
-    handleChange(formattedValue)
-  }
-
   return (
     <FormControl className={styles.root}>
       <Input
@@ -64,7 +55,6 @@ const Money = ({ id, name, value, handleChange }: Props): React.Node => {
         name={name}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
         autoComplete="off"
       />
     </FormControl>

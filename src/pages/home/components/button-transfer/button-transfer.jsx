@@ -64,7 +64,6 @@ const ButtonTransfer = (props: Props): React.Node => {
 
 const mapStateToProps = (state) => ({
   converterEntities: selectors.converter.getEntitiesSelector(state),
-  priceRationEntities: selectors.priceRation.getEntitiesSelector(state),
   loadingPayment: selectors.wallet.getLoadingSelector(state),
   exchangeRateLoading: selectors.exchangeRate.getLoadingSelector(state),
 })
